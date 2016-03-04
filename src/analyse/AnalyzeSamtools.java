@@ -77,7 +77,6 @@ public class AnalyzeSamtools extends AbstractAnalyze {
 					}
 				}
 			}
-			System.out.println("numstats: " + statsFiles.size());
 			if(statsFiles.size() == 1){
 				parseFlagstatsFile(statsFiles.get(0));
 				calculateNumReadsAndEndogenousDNA();
