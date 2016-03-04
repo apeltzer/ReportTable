@@ -38,7 +38,7 @@ import analyse.AnalyzeSample;
  * @author Alexander Seitz
  *
  */
-public class Main {
+public class ReportTable {
 
 	/**
 	 * @param args

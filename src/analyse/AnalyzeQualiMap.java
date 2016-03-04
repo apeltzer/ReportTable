@@ -24,7 +24,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import main.Main;
+import main.ReportTable;
 import utilities.OutputStrings;
 import utilities.Pipelines;
 
@@ -138,14 +138,14 @@ public class AnalyzeQualiMap extends AbstractAnalyze {
 				}else if(currLine.contains("mean coverageData")){
 					String[] splitted = currLine.split(" ");
 					this.meanCoverage = splitted[splitted.length-1];
-					this.meanCoverage = Main.toCorrectNumberFormat(this.meanCoverage);
+					this.meanCoverage = ReportTable.toCorrectNumberFormat(this.meanCoverage);
 //					this.meanCoverage = this.meanCoverage.replace(".", "");
 //					this.meanCoverage = this.meanCoverage.replace(",", ".");
 					this.meanCoverage = this.meanCoverage.replace("X", "");
 				}else if(currLine.contains("std coverageData")){
 					String[] splitted = currLine.split(" ");
 					this.stdCoverage = splitted[splitted.length-1];
-					this.stdCoverage = Main.toCorrectNumberFormat(this.stdCoverage);
+					this.stdCoverage = ReportTable.toCorrectNumberFormat(this.stdCoverage);
 //					this.stdCoverage = this.stdCoverage.replace(".", "");
 //					this.stdCoverage = this.stdCoverage.replace(",", ".");
 					this.stdCoverage = this.stdCoverage.replace("X", "");
