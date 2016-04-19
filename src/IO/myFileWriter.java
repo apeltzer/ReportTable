@@ -90,11 +90,6 @@ public class myFileWriter {
 			result.append(OutputFields.TotalNumMappedReadsBeforeDupRemovalQF.toString());
 			result.append(",");
 		}
-		if(outputMap.containsKey(OutputFields.EndogenousDNA)
-				&& outputMap.get(OutputFields.EndogenousDNA)){
-			result.append(OutputFields.EndogenousDNA.toString());
-			result.append(",");
-		}
 		if(outputMap.containsKey(OutputFields.NumDupRemoved)
 				&& outputMap.get(OutputFields.NumDupRemoved)){
 			result.append(OutputFields.NumDupRemoved.toString());
@@ -103,6 +98,11 @@ public class myFileWriter {
 		if(outputMap.containsKey(OutputFields.MappedReadsAfterDupRemoval)
 				&& outputMap.get(OutputFields.MappedReadsAfterDupRemoval)){
 			result.append(OutputFields.MappedReadsAfterDupRemoval.toString());
+			result.append(",");
+		}
+		if(outputMap.containsKey(OutputFields.EndogenousDNA)
+				&& outputMap.get(OutputFields.EndogenousDNA)){
+			result.append(OutputFields.EndogenousDNA.toString());
 			result.append(",");
 		}
 //		if(outputMap.containsKey(OutputFields.PerCentMappedReads)
