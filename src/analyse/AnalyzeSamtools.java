@@ -123,7 +123,7 @@ public class AnalyzeSamtools extends AbstractAnalyze {
 	 * 
 	 */
 	private void calculateNumReadsAndEndogenousDNA() {
-		if(!OutputStrings.notFound.equals(this.mapped) && !OutputStrings.notFound.equals(this.unmapped)){
+		if(!OutputStrings.notFound.equals(this.mapped) && !OutputStrings.notFound.equals(this.unmapped)&& !OutputStrings.notFound.equals(this.mappedQF)){
 			Double mappedReads = Double.parseDouble(this.mapped);
 			Double unmappedReads = Double.parseDouble(this.unmapped);
 			Double numberReads = mappedReads + unmappedReads;
