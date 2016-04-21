@@ -42,12 +42,6 @@ public enum OutputFields {
 			return "# of Raw Reads prior Clip & Merge (C&M)";
 		}
 	},
-	NumUsableReadsAfterMerging {
-		@Override 
-		public String toString(){
-			return "# reads after C&M prior mapping";
-		}
-	},
 	NumMergedReads {
 		@Override 
 		public String toString(){
@@ -58,6 +52,12 @@ public enum OutputFields {
 		@Override 
 		public String toString(){
 			return "% Merged Reads";
+		}
+	},
+	NumUsableReadsAfterMerging {
+		@Override 
+		public String toString(){
+			return "# reads after C&M prior mapping";
 		}
 	},
 	TotalNumMappedReadsBeforeDupRemoval {
@@ -84,18 +84,6 @@ public enum OutputFields {
 			return "Mapped Reads after RMDup";
 		}
 	},
-	PerCentMappedReads {
-		@Override 
-		public String toString(){
-			return "% mapped Reads after RMDup";
-		}
-	},
-	GCContent {
-		@Override 
-		public String toString(){
-			return "GC content";
-		}
-	},
 	EndogenousDNA {
 		@Override 
 		public String toString(){
@@ -106,18 +94,6 @@ public enum OutputFields {
 		@Override 
 		public String toString(){
 			return "Cluster Factor";
-		}
-	},
-	EndogenousDNAQF {
-		@Override 
-		public String toString(){
-			return "Endogenous DNA QF (%)";
-		}
-	},
-	ClusterFactorQF {
-		@Override 
-		public String toString(){
-			return "Cluster Factor QF";
 		}
 	},
 	MeanCoverage {
@@ -186,54 +162,6 @@ public enum OutputFields {
 			return "MT/NUC Ratio";
 		}
 	},
-//	SNPCCNumPosFound {
-//		@Override 
-//		public String toString(){
-//			return "SNPCC: # of Positions found by genotyper";
-//		}
-//	},
-//	SNPCCNumCheckedPos {
-//		@Override 
-//		public String toString(){
-//			return "SNPCC: # of checked positions against list";
-//		}
-//	},
-//	SNPCCPerCentSNPCovered {
-//		@Override 
-//		public String toString(){
-//			return "SNPCC: Percentage of SNP Positions covered";
-//		}
-//	},
-//	SNPCCTotalNumHQPos {
-//		@Override 
-//		public String toString(){
-//			return "SNPCC: Total # of HQ Positions";
-//		}
-//	},
-//	SNPCCTotalNumLQPos {
-//		@Override 
-//		public String toString(){
-//			return "SNPCC: Total # of LQ Positions";
-//		}
-//	},
-//	SNPCCCovHQ {
-//		@Override 
-//		public String toString(){
-//			return "SNPCC: Coverage on HQ Sites";
-//		}
-//	},
-//	SNPCCCovLQ {
-//		@Override 
-//		public String toString(){
-//			return "SNPCC: Coverage on LQ Sites";
-//		}
-//	},
-//	SNPCCCovVerified {
-//		@Override 
-//		public String toString(){
-//			return "SNPCC: Coverage on verified Site";
-//		}
-//	},
 	Damage3Prime1st{
 		@Override
 		public String toString(){
@@ -257,7 +185,7 @@ public enum OutputFields {
 		public String toString(){
 			return "DMG 2nd Base 5'";
 		}
-	}, 
+	},
 	DamageLgDistribution{
 		@Override
 		public String toString(){
@@ -298,6 +226,12 @@ public enum OutputFields {
 		@Override
 		public String toString(){
 			return "Final cont est high";
+		}
+	},
+	GCContent {
+		@Override 
+		public String toString(){
+			return "GC content";
 		}
 	};
 }

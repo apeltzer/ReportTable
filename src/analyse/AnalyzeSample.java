@@ -491,8 +491,8 @@ public class AnalyzeSample {
 				case MappedReadsAfterDupRemoval:
 					outputMap.put(OutputFields.MappedReadsAfterDupRemoval, wasRunSuccessful(this.mappedReadsAfterDupRemoval));
 					break;
-				case PerCentMappedReads:
-					outputMap.put(OutputFields.PerCentMappedReads, wasRunSuccessful(this.perCentMappedReads));
+//				case PerCentMappedReads:
+//					outputMap.put(OutputFields.PerCentMappedReads, wasRunSuccessful(this.perCentMappedReads));
 				case GCContent:
 					outputMap.put(OutputFields.GCContent, wasRunSuccessful(this.gcContent));
 					break;
@@ -505,12 +505,12 @@ public class AnalyzeSample {
 				case TotalNumMappedReadsBeforeDupRemovalQF:
 					outputMap.put(OutputFields.TotalNumMappedReadsBeforeDupRemovalQF, wasRunSuccessful(this.mappedQF));
 					break;
-				case EndogenousDNAQF:
-					outputMap.put(OutputFields.EndogenousDNAQF, wasRunSuccessful(this.endogenousDNAQF));
-					break;
-				case ClusterFactorQF:
-					outputMap.put(OutputFields.ClusterFactorQF, wasRunSuccessful(this.clusterFactorQF));
-					break;
+//				case EndogenousDNAQF:
+//					outputMap.put(OutputFields.EndogenousDNAQF, wasRunSuccessful(this.endogenousDNAQF));
+//					break;
+//				case ClusterFactorQF:
+//					outputMap.put(OutputFields.ClusterFactorQF, wasRunSuccessful(this.clusterFactorQF));
+//					break;
 				case MeanCoverage:
 					outputMap.put(OutputFields.MeanCoverage, wasRunSuccessful(this.meanCoverage));
 					break;
@@ -899,6 +899,258 @@ public class AnalyzeSample {
 	 */
 	public String getMapperVersion(){
 		return this.versionMapper;
+	}
+
+	/**
+	 * @return the sampleNumber
+	 */
+	public String getSampleNumber() {
+		return sampleNumber;
+	}
+
+	/**
+	 * @return the sampleName
+	 */
+	public String getSampleName() {
+		return sampleName;
+	}
+
+	/**
+	 * @return the avgCoverageOnMt
+	 */
+	public String getAvgCoverageOnMt() {
+		return avgCoverageOnMt;
+	}
+
+	/**
+	 * @return the clusterFactor
+	 */
+	public String getClusterFactor() {
+		return clusterFactor;
+	}
+
+	/**
+	 * @return the clusterFactorQF
+	 */
+	public String getClusterFactorQF() {
+		return clusterFactorQF;
+	}
+
+	/**
+	 * @return the numberRawReads
+	 */
+	public String getNumberRawReads() {
+		return numberRawReads;
+	}
+
+	/**
+	 * @return the numberUsableReadsAfterMerging
+	 */
+	public String getNumberUsableReadsAfterMerging() {
+		return numberUsableReadsAfterMerging;
+	}
+
+	/**
+	 * @return the numberMergedReads
+	 */
+	public String getNumberMergedReads() {
+		return numberMergedReads;
+	}
+
+	/**
+	 * @return the perCentMergedReads
+	 */
+	public String getPerCentMergedReads() {
+		return perCentMergedReads;
+	}
+
+	/**
+	 * @return the totalNumMappedReadsBeforeDupRemoval
+	 */
+	public String getTotalNumMappedReadsBeforeDupRemoval() {
+		return totalNumMappedReadsBeforeDupRemoval;
+	}
+
+	/**
+	 * @return the numberDuplicatesRemoved
+	 */
+	public String getNumberDuplicatesRemoved() {
+		return numberDuplicatesRemoved;
+	}
+
+	/**
+	 * @return the mappedQF
+	 */
+	public String getMappedQF() {
+		return mappedQF;
+	}
+
+	/**
+	 * @return the mappedReadsAfterDupRemoval
+	 */
+	public String getMappedReadsAfterDupRemoval() {
+		return mappedReadsAfterDupRemoval;
+	}
+
+	/**
+	 * @return the endogenousDNA
+	 */
+	public String getEndogenousDNA() {
+		return endogenousDNA;
+	}
+
+	/**
+	 * @return the meanCoverage
+	 */
+	public String getMeanCoverage() {
+		return meanCoverage;
+	}
+
+	/**
+	 * @return the stdCoverage
+	 */
+	public String getStdCoverage() {
+		return stdCoverage;
+	}
+
+	/**
+	 * @return the coverage1x
+	 */
+	public String getCoverage1x() {
+		return coverage1x;
+	}
+
+	/**
+	 * @return the coverage2x
+	 */
+	public String getCoverage2x() {
+		return coverage2x;
+	}
+
+	/**
+	 * @return the coverage3x
+	 */
+	public String getCoverage3x() {
+		return coverage3x;
+	}
+
+	/**
+	 * @return the coverage4x
+	 */
+	public String getCoverage4x() {
+		return coverage4x;
+	}
+
+	/**
+	 * @return the coverage5x
+	 */
+	public String getCoverage5x() {
+		return coverage5x;
+	}
+
+	/**
+	 * @return the numMitochondrealReads
+	 */
+	public String getNumMitochondrealReads() {
+		return numMitochondrealReads;
+	}
+
+	/**
+	 * @return the mttonucratio
+	 */
+	public String getMttonucratio() {
+		return mttonucratio;
+	}
+
+	/**
+	 * @return the numSNPs
+	 */
+	public String getNumSNPs() {
+		return numSNPs;
+	}
+
+	/**
+	 * @return the damage3Prime1
+	 */
+	public String getDamage3Prime1() {
+		return damage3Prime1;
+	}
+
+	/**
+	 * @return the damage3Prime2
+	 */
+	public String getDamage3Prime2() {
+		return damage3Prime2;
+	}
+
+	/**
+	 * @return the damage5Prime1
+	 */
+	public String getDamage5Prime1() {
+		return damage5Prime1;
+	}
+
+	/**
+	 * @return the damage5Prime2
+	 */
+	public String getDamage5Prime2() {
+		return damage5Prime2;
+	}
+
+	/**
+	 * @return the meanFragmentLength
+	 */
+	public String getMeanFragmentLength() {
+		return meanFragmentLength;
+	}
+
+	/**
+	 * @return the gcContent
+	 */
+	public String getGcContent() {
+		return gcContent;
+	}
+
+	/**
+	 * @return the initialEstimation
+	 */
+	public String getInitialEstimation() {
+		return initialEstimation;
+	}
+
+	/**
+	 * @return the initialLowerBound
+	 */
+	public String getInitialLowerBound() {
+		return initialLowerBound;
+	}
+
+	/**
+	 * @return the initialUpperBound
+	 */
+	public String getInitialUpperBound() {
+		return initialUpperBound;
+	}
+
+	/**
+	 * @return the finalEstimation
+	 */
+	public String getFinalEstimation() {
+		return finalEstimation;
+	}
+
+	/**
+	 * @return the finalLowerBound
+	 */
+	public String getFinalLowerBound() {
+		return finalLowerBound;
+	}
+
+	/**
+	 * @return the finalUpperBound
+	 */
+	public String getFinalUpperBound() {
+		return finalUpperBound;
 	}
 
 }
