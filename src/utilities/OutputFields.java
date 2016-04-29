@@ -29,11 +29,31 @@ public enum OutputFields {
 		public String toString(){
 			return "Sample number";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getSampleNumber";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", html5_data: 'data-filter', filter_type: 'range_number'";
+		}
 	},
 	SampleName {
 		@Override 
 		public String toString(){
 			return "Sample Name";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getSampleName";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'text'";
 		}
 	},
 	NumRawReads {
@@ -41,11 +61,31 @@ public enum OutputFields {
 		public String toString(){
 			return "# of Raw Reads prior Clip & Merge (C&M)";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getNumberRawReads";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
 	},
 	NumMergedReads {
 		@Override 
 		public String toString(){
 			return "# of Merged Reads";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getNumberMergedReads";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	PerCentMergedReads {
@@ -53,11 +93,31 @@ public enum OutputFields {
 		public String toString(){
 			return "% Merged Reads";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getPerCentMergedReads";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", html5_data: 'data-filter', filter_type: 'range_number'";
+		}
 	},
 	NumUsableReadsAfterMerging {
 		@Override 
 		public String toString(){
 			return "# reads after C&M prior mapping";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getNumberUsableReadsAfterMerging";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	TotalNumMappedReadsBeforeDupRemoval {
@@ -65,11 +125,31 @@ public enum OutputFields {
 		public String toString(){
 			return "# mapped reads prior RMDup";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getTotalNumMappedReadsBeforeDupRemoval";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
 	},
 	TotalNumMappedReadsBeforeDupRemovalQF {
 		@Override 
 		public String toString(){
 			return "# mapped reads prior RMDup QF";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getMappedQF";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	NumDupRemoved {
@@ -77,11 +157,31 @@ public enum OutputFields {
 		public String toString(){
 			return "# of Duplicates removed";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getNumberDuplicatesRemoved";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
 	},
 	MappedReadsAfterDupRemoval {
 		@Override 
 		public String toString(){
 			return "Mapped Reads after RMDup";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getMappedReadsAfterDupRemoval";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	EndogenousDNA {
@@ -89,11 +189,31 @@ public enum OutputFields {
 		public String toString(){
 			return "Endogenous DNA (%)";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getEndogenousDNA";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
 	},
 	ClusterFactor {
 		@Override 
 		public String toString(){
 			return "Cluster Factor";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getClusterFactor";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	MeanCoverage {
@@ -101,11 +221,31 @@ public enum OutputFields {
 		public String toString(){
 			return "Mean Coverage";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getMeanCoverage";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
 	},
 	StdDevCoverage {
 		@Override 
 		public String toString(){
 			return "std. dev. Coverage";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getStdCoverage";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	Coverage1X {
@@ -113,11 +253,31 @@ public enum OutputFields {
 		public String toString(){
 			return "Coverage >= 1X";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getCoverage1x";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", html5_data: 'data-filter', filter_type: 'range_number'";
+		}
 	},
 	Coverage2X {
 		@Override 
 		public String toString(){
 			return "Coverage >= 2X";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getCoverage2x";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", html5_data: 'data-filter', filter_type: 'range_number'";
 		}
 	},
 	Coverage3X {
@@ -125,11 +285,31 @@ public enum OutputFields {
 		public String toString(){
 			return "Coverage >= 3X";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getCoverage3x";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", html5_data: 'data-filter', filter_type: 'range_number'";
+		}
 	},
 	Coverage4X {
 		@Override 
 		public String toString(){
 			return "Coverage >= 4X";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getCoverage4x";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", html5_data: 'data-filter', filter_type: 'range_number'";
 		}
 	},
 	Coverage5X {
@@ -137,11 +317,31 @@ public enum OutputFields {
 		public String toString(){
 			return "Coverage >= 5X";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getCoverage5x";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", html5_data: 'data-filter', filter_type: 'range_number'";
+		}
 	},
 	NumSNPs {
 		@Override 
 		public String toString(){
 			return "# SNPs";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getNumSNPs";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	NumReadsMT {
@@ -149,11 +349,31 @@ public enum OutputFields {
 		public String toString(){
 			return "# of reads on mitochondrium";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getNumMitochondrealReads";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
 	},
 	AVGCovMT {
 		@Override 
 		public String toString(){
 			return "AVG Coverage on mitochondrium";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getAvgCoverageOnMt";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	MTNUCRatio {
@@ -161,11 +381,31 @@ public enum OutputFields {
 		public String toString(){
 			return "MT/NUC Ratio";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getMttonucratio";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
 	},
 	Damage3Prime1st{
 		@Override
 		public String toString(){
 			return "DMG 1st Base 3'";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getDamage3Prime1";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	Damage3Prime2nd{
@@ -173,11 +413,31 @@ public enum OutputFields {
 		public String toString(){
 			return "DMG 2nd Base 3'";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getDamage3Prime2";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
 	},
 	Damage5Prime1st{
 		@Override
 		public String toString(){
 			return "DMG 1st Base 5'";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getDamage5Prime1";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	Damage5Prime2nd{
@@ -185,11 +445,31 @@ public enum OutputFields {
 		public String toString(){
 			return "DMG 2nd Base 5'";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getDamage5Prime2";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
 	},
 	DamageLgDistribution{
 		@Override
 		public String toString(){
 			return "average fragment length";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getMeanFragmentLength";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	InitialContamination{
@@ -197,11 +477,31 @@ public enum OutputFields {
 		public String toString(){
 			return "Initial cont est";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getInitialEstimation";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
 	},
 	InitialContaminationLowerBound{
 		@Override
 		public String toString(){
 			return "Initial cont est low";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getInitialLowerBound";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	InitialContaminationUpperBound{
@@ -209,11 +509,31 @@ public enum OutputFields {
 		public String toString(){
 			return "Initial cont est high";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getInitialUpperBound";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
 	},
 	FinalContamination{
 		@Override
 		public String toString(){
 			return "Final cont est";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getFinalEstimation";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	FinalContaminationLowerBound{
@@ -221,11 +541,31 @@ public enum OutputFields {
 		public String toString(){
 			return "Final cont est low";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getFinalLowerBound";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
 	},
 	FinalContaminationUpperBound{
 		@Override
 		public String toString(){
 			return "Final cont est high";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getFinalUpperBound";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
 		}
 	},
 	GCContent {
@@ -233,5 +573,18 @@ public enum OutputFields {
 		public String toString(){
 			return "GC content";
 		}
+
+		@Override
+		public String getGetterName() {
+			return "getGcContent";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", html5_data: 'data-filter', filter_type: 'range_number'";
+		}
 	};
+	
+	public abstract String getGetterName();
+	public abstract String getFieldType();
 }

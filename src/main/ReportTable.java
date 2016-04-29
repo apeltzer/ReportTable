@@ -28,10 +28,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
-import utilities.OutputFields;
+import IO.AReportWriter;
 import IO.AnalyzeFolders;
-import IO.myFileWriter;
+import IO.CSVFileWriter;
+import IO.HTMLFileWriter;
 import analyse.AnalyzeSample;
+import utilities.OutputFields;
 
 
 /**
@@ -81,32 +83,33 @@ public class ReportTable {
 			AnalyzeSample analyzeSample = new AnalyzeSample(f, sampleNum, analyzeFolders.getNumSamples());
 			analyzeSample.analyzeSuccessful(outputMap);
 			analyzedSamples.add(analyzeSample);
-//			fw.appendLine(analyzeSample.getResultString());
 			sampleNum++;
 		}
 		
 		// print the results
-		myFileWriter fw = new myFileWriter(outputFile, outputMap);
-		File f = new File(outputFile);
-		String path = f.getAbsolutePath();
-		fw.writeNotSuccessfulAnalyzed(path.replace(".csv", "") + "_notAnalyzed", outputMap);
+		List<AReportWriter> outputWriter = new LinkedList<AReportWriter>();
+		outputWriter.add(new HTMLFileWriter(outputFile, outputMap));
+		outputWriter.add(new CSVFileWriter(outputFile, outputMap));
+		for(AReportWriter afw: outputWriter){
+			afw.writeNotSuccessfulAnalyzed(outputMap);
+		}
 		HashSet<String> fastqc = new HashSet<String>();
 		HashSet<String> clipAndMerge = new HashSet<String>();
 		HashSet<String> mapper = new HashSet<String>();
 		for(AnalyzeSample analyzeSample: analyzedSamples){
-			fw.appendLine(analyzeSample.generateOutputString(outputMap), outputMap);
+			for(AReportWriter afw: outputWriter){
+				afw.writeDataLine(outputMap, analyzeSample);
+			}
 			fastqc.add(analyzeSample.getFastQCVersion());
 			clipAndMerge.add(analyzeSample.getClipAndMergeVersion());
 			mapper.add(analyzeSample.getMapperVersion());
 		}
-		// write the versions
-		String versionFilename = path;
-		if(versionFilename.endsWith(".csv")){
-			versionFilename = path.replace(".csv", "_version");
-		}else{
-			versionFilename = versionFilename + "_version";
+		for(AReportWriter afw: outputWriter){
+			afw.finalizeWriting();
 		}
-		fw.writeVersions(versionFilename, fastqc, clipAndMerge, mapper);
+		for(AReportWriter afw: outputWriter){
+			afw.writeVersions(fastqc, clipAndMerge, mapper);
+		}
 		System.out.println("finished");
 	}
 

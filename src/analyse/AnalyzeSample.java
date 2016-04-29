@@ -20,6 +20,7 @@
 package analyse;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class AnalyzeSample {
 	private String avgCoverageOnMt = "";
 	private String mttonucratio = "";
 	private String mappedReadsAfterDupRemoval = "";
-	private String perCentMappedReads = "";
+//	private String perCentMappedReads = "";
 	private String gcContent = "";
 	private String endogenousDNA = "";
 	private String clusterFactor = "";
@@ -368,17 +369,17 @@ public class AnalyzeSample {
 		//		if("".equals(this.perCentMappedReads)
 		//				|| OutputStrings.notFound.equals(this.perCentMappedReads)
 		//				|| OutputStrings.notRun.equals(this.perCentMappedReads)){
-		if(!"".equals(this.mappedReadsAfterDupRemoval)
-				&& !OutputStrings.notFound.equals(this.mappedReadsAfterDupRemoval)
-				&& !OutputStrings.notRun.equals(this.mappedReadsAfterDupRemoval)
-				&& !"".equals(this.numberUsableReadsAfterMerging)
-				&& !OutputStrings.notFound.equals(this.numberUsableReadsAfterMerging)
-				&& !OutputStrings.notRun.equals(this.numberUsableReadsAfterMerging)){
-			Double usable = Double.parseDouble(this.numberUsableReadsAfterMerging);
-			Double mapped = Double.parseDouble(this.mappedReadsAfterDupRemoval);
-			Double perCentMapped = (mapped / usable)*100;
-			this.perCentMappedReads = String.format(Locale.ENGLISH, "%.3f", perCentMapped);
-		}
+//		if(!"".equals(this.mappedReadsAfterDupRemoval)
+//				&& !OutputStrings.notFound.equals(this.mappedReadsAfterDupRemoval)
+//				&& !OutputStrings.notRun.equals(this.mappedReadsAfterDupRemoval)
+//				&& !"".equals(this.numberUsableReadsAfterMerging)
+//				&& !OutputStrings.notFound.equals(this.numberUsableReadsAfterMerging)
+//				&& !OutputStrings.notRun.equals(this.numberUsableReadsAfterMerging)){
+//			Double usable = Double.parseDouble(this.numberUsableReadsAfterMerging);
+//			Double mapped = Double.parseDouble(this.mappedReadsAfterDupRemoval);
+//			Double perCentMapped = (mapped / usable)*100;
+//			this.perCentMappedReads = String.format(Locale.ENGLISH, "%.3f", perCentMapped);
+//		}
 		//		}
 		// calculate the number of reads removed by RMDup
 		if(!"".equals(this.mappedReadsAfterDupRemoval)
@@ -1151,6 +1152,17 @@ public class AnalyzeSample {
 	 */
 	public String getFinalUpperBound() {
 		return finalUpperBound;
+	}
+
+	public String getValue(OutputFields currField) {
+		String result = OutputStrings.notFound;
+		try {
+			java.lang.reflect.Method method = this.getClass().getMethod(currField.getGetterName());
+			result = (String) method.invoke(this);
+		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+			result = OutputStrings.notFound;
+		}
+		return result;
 	}
 
 }
