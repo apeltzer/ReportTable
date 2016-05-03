@@ -22,7 +22,7 @@ public class HTMLFileWriter extends AReportWriter {
 
 	private void writeImage() {
 		File f = new File(this.filename);
-		String image = f.getParent()+"/EAGER_Logo.png";
+		String image = new File(f.getAbsolutePath()).getParent()+"/EAGER_Logo.png";
 		File imageFile = new File(image);
 		if(!imageFile.exists()){
 			ExportResource("/EAGER_Logo.png", image);			
@@ -46,11 +46,14 @@ public class HTMLFileWriter extends AReportWriter {
                 resStreamOut.write(buffer, 0, readBytes);
             }
         } catch (Exception ex) {
+        	ex.printStackTrace();
+        	return;
         } finally {
             try {
 				stream.close();
 				resStreamOut.close();
-			} catch (IOException e) {
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
         }
     }
