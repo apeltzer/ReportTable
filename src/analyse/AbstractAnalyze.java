@@ -57,8 +57,16 @@ public abstract class AbstractAnalyze {
 		return null;
 	}
 
+  /**
+  * Look for subDirectories in results folders
+  * If we don't match the sample name then fall back to removing hidden folders
+  **/
   protected String[] filterDataDir (String [] names) {
-    return Arrays.stream(names).filter ( n -> n.startsWith(this.sampleFolder.getName ()) ).sorted(Comparator.comparing(String::length)).toArray (String[]::new);
+    String[] filteredNames = Arrays.stream(names).filter ( n -> n.startsWith(this.sampleFolder.getName ()) ).sorted(Comparator.comparing(String::length)).toArray (String[]::new);
+    if ( filteredNames.length == 0 ) {
+      filteredNames = Arrays.stream(names).filter ( n -> (!n.startsWith (".")) ).sorted(Comparator.comparing(String::length)).toArray (String[]::new);
+    }
+    return filteredNames;
   }
 
 }
