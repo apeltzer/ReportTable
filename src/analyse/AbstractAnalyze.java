@@ -15,24 +15,26 @@
  */
 
 /**
- * 
+ *
  */
 package analyse;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import utilities.Pipelines;
 
 /**
- * 
+ *
  * Abstract superclass for the analysis of the different parts of
  * the pipeline.<p>
- * 
+ *
  * @author Alexander Seitz
  *
  */
 public abstract class AbstractAnalyze {
-	
+
 	protected File sampleFolder;
 
 	/**
@@ -43,7 +45,7 @@ public abstract class AbstractAnalyze {
 	public AbstractAnalyze(File sampleFolder) {
 		this.sampleFolder = sampleFolder;
 	}
-	
+
 	protected File getCurrFolder(Pipelines p){
 		for(String tmpDir: this.sampleFolder.list()){
 			File currFile = new File(this.sampleFolder + "/" + tmpDir);
@@ -54,5 +56,9 @@ public abstract class AbstractAnalyze {
 		}
 		return null;
 	}
+
+  protected String[] filterDataDir (String [] names) {
+    return Arrays.stream(names).filter ( n -> n.startsWith(this.sampleFolder.getName ()) ).sorted(Comparator.comparing(String::length)).toArray (String[]::new);
+  }
 
 }

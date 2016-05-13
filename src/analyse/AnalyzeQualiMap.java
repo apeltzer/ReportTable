@@ -23,8 +23,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Comparator;
 
 import main.ReportTable;
 import utilities.OutputStrings;
@@ -98,8 +96,7 @@ public class AnalyzeQualiMap extends AbstractAnalyze {
 //		if(dataDir.exists()){
 		if(dataDir != null){
 			String[] names = dataDir.list();
-      String[] filteredNames = Arrays.stream(names).filter ( n -> n.startsWith(workingDirectory.getName ()) ).sorted(Comparator.comparing(String::length)).toArray (String[]::new);
-			for(String name:filteredNames){
+			for(String name:filterDataDir(names)){
 				File currFile = new File(dataDir.getAbsolutePath() + "/" + name);
 				if(currFile.isDirectory()){
 					analyzeQualiMapResults(currFile);
