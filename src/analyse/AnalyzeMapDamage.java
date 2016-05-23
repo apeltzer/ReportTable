@@ -15,7 +15,7 @@
  */
 
 /**
- * 
+ *
  */
 package analyse;
 
@@ -39,7 +39,7 @@ public class AnalyzeMapDamage extends AbstractAnalyze {
 	private String FirstBase5 = OutputStrings.notFound;
 	private String SecondBase5 = OutputStrings.notFound;
 	private String meanFragmentLength = OutputStrings.notFound;
-	
+
 
 	public AnalyzeMapDamage(File sampleFolder) {
 		super(sampleFolder);
@@ -54,7 +54,7 @@ public class AnalyzeMapDamage extends AbstractAnalyze {
 //		if(currFolder.exists()){
 		if(currFolder != null){
 			String[] names = currFolder.list();
-			for(String name:names){
+			for(String name:filterDataDir(names)){
 				File currFile = new File(currFolder+"/"+name);
 				if(currFile.isDirectory()){
 					analyzeMapDamageFiles(currFile);
@@ -124,17 +124,17 @@ public class AnalyzeMapDamage extends AbstractAnalyze {
 			this.SecondBase5 = two;
 		}
 	}
-	
-	
+
+
 	/**
 	 * This method computes the weighted mean fragment length
 	 * of all fragments given as input
-	 *  
+	 *
 	 * @param currFile
 	 */
 	private void computeAverageLength(File currFile) {
-		ArrayList<ArrayList<Integer>> fragments = new ArrayList<ArrayList<Integer>>();	
-		
+		ArrayList<ArrayList<Integer>> fragments = new ArrayList<ArrayList<Integer>>();
+
 		try {
 			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(new FileReader(currFile));
@@ -146,11 +146,11 @@ public class AnalyzeMapDamage extends AbstractAnalyze {
 					pairs.add(Integer.parseInt(line_split[1]));
 					pairs.add(Integer.parseInt(line_split[2]));
 					fragments.add(pairs);
-				}				
+				}
 			}
 		} catch (IOException e) {
 		}
-		
+
 		ArrayList<Integer> pair;
 		int length_sum = 0;
 		int number_of_fragments=0;
@@ -158,11 +158,11 @@ public class AnalyzeMapDamage extends AbstractAnalyze {
 		for(int i = 0; i < fragments.size(); i++){
 			pair = fragments.get(i);
 			number_of_fragments += pair.get(1);
-			length_sum += pair.get(0) * pair.get(1); 
-		}		
+			length_sum += pair.get(0) * pair.get(1);
+		}
 
 		this.meanFragmentLength = Double.toString(Math.round((double) length_sum / number_of_fragments * 100.0) / 100.0);
-		
+
 	}
 
 
@@ -196,7 +196,7 @@ public class AnalyzeMapDamage extends AbstractAnalyze {
 	public String getSecondBase5() {
 		return SecondBase5;
 	}
-	
+
 
 	/**
 	 * @return the weighted average length of the reads
@@ -204,5 +204,5 @@ public class AnalyzeMapDamage extends AbstractAnalyze {
 	public String getMeanFragmentLength() {
 		return meanFragmentLength;
 	}
-	
+
 }

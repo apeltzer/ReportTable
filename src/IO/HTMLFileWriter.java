@@ -24,10 +24,10 @@ public class HTMLFileWriter extends AReportWriter {
 		String image = new File(f.getAbsolutePath()).getParent()+"/EAGER_Logo.png";
 		File imageFile = new File(image);
 		if(!imageFile.exists()){
-			ExportResource("/EAGER_Logo.png", image);			
+			ExportResource("/resource/EAGER_Logo.png", image);
 		}
 	}
-	
+
 	private void ExportResource(String resourceName, String outputFile) {
         InputStream stream = null;
         OutputStream resStreamOut = null;
@@ -108,7 +108,7 @@ public class HTMLFileWriter extends AReportWriter {
 		this.writer.flush();
 		this.writer.close();
 	}
-	
+
 	private void writeHTMLHeader(List<String> types){
 		this.writer.println("<!DOCTYPE html>");
 		this.writer.println("<html>");
@@ -119,19 +119,19 @@ public class HTMLFileWriter extends AReportWriter {
 		this.writer.println("\t\t<link rel=\"shortcut icon\" type=\"image/png\" href=\"EAGER_Logo.png\">");
 		// add the css for the buttons.dataTables library: https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css
 		this.writer.println("\t\t<style>");
-		this.writer.print(readResourceFile("buttons.dataTables.min.css", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/buttons.dataTables.min.css", "\t\t\t"));
 		this.writer.println("\t\t</style>");
 		// add the css for the jquery.dataTables library: https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css
 		this.writer.println("\t\t<style>");
-		this.writer.print(readResourceFile("jquery.dataTables.min.css", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/jquery.dataTables.min.css", "\t\t\t"));
 		this.writer.println("\t\t</style>");
 		// add the css for the jquery-ui library: http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/base/jquery-ui.css
 		this.writer.println("\t\t<style>");
-		this.writer.print(readResourceFile("jquery-ui.css", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/jquery-ui.css", "\t\t\t"));
 		this.writer.println("\t\t</style>");
 		// add the css for the yadcf library
 		this.writer.println("\t\t<style>");
-		this.writer.print(readResourceFile("jquery.dataTables.yadcf.css", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/jquery.dataTables.yadcf.css", "\t\t\t"));
 		this.writer.println("\t\t</style>");
 		// redefine some css values
 		this.writer.println("\t\t<style>");
@@ -147,47 +147,47 @@ public class HTMLFileWriter extends AReportWriter {
 //		this.writer.println("\t\t<script src=\"https://code.jquery.com/jquery-1.12.3.min.js\"></script>");
 		// add the js for the jquery library https://code.jquery.com/jquery-1.12.3.min.js
 		this.writer.println("\t\t<script>");
-		this.writer.print(readResourceFile("jquery-1.12.3.min.js", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/jquery-1.12.3.min.js", "\t\t\t"));
 		this.writer.println("\t\t</script>");
 //		this.writer.println("\t\t<script src=\"https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js\"></script>");
 		// add the js for the dataTables library https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js
 		this.writer.println("\t\t<script>");
-		this.writer.print(readResourceFile("jquery.dataTables.min.js", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/jquery.dataTables.min.js", "\t\t\t"));
 		this.writer.println("\t\t</script>");
 //		this.writer.println("\t\t<script src=\"https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js\"></script>");
 		// add the js for the dataTables.buttons library https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js
 		this.writer.println("\t\t<script>");
-		this.writer.print(readResourceFile("dataTables.buttons.min.js", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/dataTables.buttons.min.js", "\t\t\t"));
 		this.writer.println("\t\t</script>");
 //		this.writer.println("\t\t<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js\"></script>");
 		// add the js for the jszip library https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js
 		this.writer.println("\t\t<script>");
-		this.writer.print(readResourceFile("jszip.min.js", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/jszip.min.js", "\t\t\t"));
 		this.writer.println("\t\t</script>");
 //		this.writer.println("\t\t<script src=\"https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js\"></script>");
 		// add the js for the pdfmake library https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js
 		this.writer.println("\t\t<script>");
-		this.writer.print(readResourceFile("pdfmake.min.js", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/pdfmake.min.js", "\t\t\t"));
 		this.writer.println("\t\t</script>");
 //		this.writer.println("\t\t<script src=\"https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js\"></script>");
 		// add the js for the vfs_fonts library https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js
 		this.writer.println("\t\t<script>");
-		this.writer.print(readResourceFile("vfs_fonts.js", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/vfs_fonts.js", "\t\t\t"));
 		this.writer.println("\t\t</script>");
 //		this.writer.println("\t\t<script src=\"https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js\"></script>");
 		// add the js for the buttons.html5 library https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js
 		this.writer.println("\t\t<script>");
-		this.writer.print(readResourceFile("buttons.html5.min.js", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/buttons.html5.min.js", "\t\t\t"));
 		this.writer.println("\t\t</script>");
 //		this.writer.println("\t\t<script src=\"https://cdn.datatables.net/buttons/1.1.2/js/buttons.colVis.min.js\"></script>");
 		// add the js for the buttons.colVis library https://cdn.datatables.net/buttons/1.1.2/js/buttons.colVis.min.js
 		this.writer.println("\t\t<script>");
-		this.writer.print(readResourceFile("buttons.colVis.min.js", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/buttons.colVis.min.js", "\t\t\t"));
 		this.writer.println("\t\t</script>");
 //		this.writer.println("\t\t<script src=\"jquery.dataTables.yadcf.js\"></script>");
 		// add the js for the yadcf library
 		this.writer.println("\t\t<script>");
-		this.writer.print(readResourceFile("jquery.dataTables.yadcf.js", "\t\t\t"));
+		this.writer.print(readResourceFile("resource/jquery.dataTables.yadcf.js", "\t\t\t"));
 		this.writer.println("\t\t</script>");
 		this.writer.println("\t\t<script>");
 		this.writer.println("\t\t\t$(document).ready(function(){");
@@ -266,7 +266,7 @@ public class HTMLFileWriter extends AReportWriter {
 		this.writer.println("\t\t\t\t</tr>");
 		this.writer.flush();
 	}
-	
-	
+
+
 
 }
