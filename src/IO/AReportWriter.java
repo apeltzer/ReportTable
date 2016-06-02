@@ -6,10 +6,12 @@ package IO;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -119,6 +121,37 @@ public abstract class AReportWriter {
 		}
 		return result.toString();
 	}
+	
+
+
+	protected void ExportResource(String resourceName, String outputFile) {
+        InputStream stream = null;
+        OutputStream resStreamOut = null;
+        try {
+            stream = getClass().getResourceAsStream(resourceName);//note that each / is a directory down in the "jar tree" been the jar the root of the tree
+            if(stream == null) {
+            	System.err.println("Cannot get resource \"" + resourceName + "\" from Jar file.");
+            	return;
+            }
+
+            int readBytes;
+            byte[] buffer = new byte[4096];
+            resStreamOut = new FileOutputStream(outputFile);
+            while ((readBytes = stream.read(buffer)) > 0) {
+                resStreamOut.write(buffer, 0, readBytes);
+            }
+        } catch (Exception ex) {
+        	ex.printStackTrace();
+        	return;
+        } finally {
+            try {
+				stream.close();
+				resStreamOut.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+        }
+    }
 	
 
 	public void writeNotSuccessfulAnalyzed(HashMap<OutputFields,Boolean> outputMap){
