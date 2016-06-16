@@ -568,6 +568,54 @@ public enum OutputFields {
 			return ", filter_type: 'range_number'";
 		}
 	},
+	FinalContaminationMtnotpredc{
+		@Override
+		public String toString(){
+			return "Final cont est no PredC";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getFinalEstimationMtnotpredc";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
+	},
+	FinalContaminationLowerBoundMtnotpredc{
+		@Override
+		public String toString(){
+			return "Final cont est low no PredC";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getFinalLowerBoundMtnotpredc";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
+	},
+	FinalContaminationUpperBoundMtnotpredc{
+		@Override
+		public String toString(){
+			return "Final cont est high no PredC";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getFinalUpperBoundMtnotpredc";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
+	},
 	GCContent {
 		@Override 
 		public String toString(){

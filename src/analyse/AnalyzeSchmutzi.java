@@ -39,26 +39,80 @@ public class AnalyzeSchmutzi extends AbstractAnalyze{
 	private String finalEstimation = OutputStrings.notFound;
 	private String finalLowerBound = OutputStrings.notFound;
 	private String finalUpperBound = OutputStrings.notFound;
+	private String finalEstimationMtnotpredc = OutputStrings.notFound;
+	private String finalLowerBoundMtnotpredc = OutputStrings.notFound;
+	private String finalUpperBoundMtnotpredc = OutputStrings.notFound;
 
 	public AnalyzeSchmutzi(File sampleFolder) {
 		super(sampleFolder);
+		boolean oldStyle = analyzeOldStyle();
+		if(!oldStyle){
+			analyzeNewStyle();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private void analyzeNewStyle() {
+		File contDeamFolder = new File(this.getCurrFolder(Pipelines.DeDup).getAbsolutePath()+"/contDeam");
+		File schmutziDefaultFolder = new File(this.getCurrFolder(Pipelines.DeDup).getAbsolutePath()+"/schmutzi_default");
+		File schmutziMtnotpredcFolder = new File(this.getCurrFolder(Pipelines.DeDup).getAbsolutePath()+"/schmutzi_mtnotpredc");
+		if(contDeamFolder.exists()){
+			for(String name: contDeamFolder.list()){
+				File currFile = new File(contDeamFolder+"/"+name);
+				if(currFile.getName().endsWith(".cont.est")){
+					parseFile(currFile, 1);
+					break;
+				}
+			}
+		}
+		if(schmutziDefaultFolder.exists()){
+			for(String name: schmutziDefaultFolder.list()){
+				File currFile = new File(schmutziDefaultFolder+"/"+name);
+				if(currFile.getName().endsWith("_final.cont.est")){
+					parseFile(currFile, 2);
+					break;
+				}
+			}
+		}
+		if(schmutziMtnotpredcFolder.exists()){
+			for(String name: schmutziMtnotpredcFolder.list()){
+				File currFile = new File(schmutziMtnotpredcFolder+"/"+name);
+				if(currFile.getName().endsWith("_final.cont.est")){
+					parseFile(currFile, 3);
+					break;
+				}
+			}
+		}
+	}
+
+	/**
+	 * 
+	 */
+	private boolean analyzeOldStyle() {
 		File dataDir = this.getCurrFolder(Pipelines.DeDup);
+		boolean foundInitial = false;
+		boolean foundFinal = false;
 		if(dataDir != null){
 			String[] names = dataDir.list();
 			for(String name: names){
 				File currFile = new File(dataDir+"/"+name);
 				if(currFile.isFile()){
 					if(currFile.getName().endsWith("_final.cont.est")){
-						parseFile(currFile, true);
+						parseFile(currFile, 2);
+						foundFinal = true;
 					}else if(currFile.getName().endsWith(".cont.est")){
-						parseFile(currFile, false);
+						parseFile(currFile, 1);
+						foundInitial = true;
 					}
 				}
 			}
 		}
+		return foundInitial && foundFinal;
 	}
 	
-	private void parseFile(File currFile, boolean finalEstimation) {
+	private void parseFile(File currFile, int EstimationType) {
 		String estimation = "";
 		String lowerBound = "";
 		String upperBound = "";
@@ -77,15 +131,29 @@ public class AnalyzeSchmutzi extends AbstractAnalyze{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if(finalEstimation){
-			this.finalEstimation = estimation;
-			this.finalLowerBound = lowerBound;
-			this.finalUpperBound = upperBound;
-		}else{
-			this.initialEstimation = estimation;
-			this.initialLowerBound = lowerBound;
-			this.initialUpperBound = upperBound;
+		switch(EstimationType){
+		case 1: this.initialEstimation = estimation;
+				this.initialLowerBound = lowerBound;
+				this.initialUpperBound = upperBound;
+				break;
+		case 2: this.finalEstimation = estimation;
+				this.finalLowerBound = lowerBound;
+				this.finalUpperBound = upperBound;
+				break;
+		case 3: this.finalEstimationMtnotpredc = estimation;
+				this.finalLowerBoundMtnotpredc = lowerBound;
+				this.finalUpperBoundMtnotpredc = upperBound;
+				break;
 		}
+//		if(finalEstimation){
+//			this.finalEstimation = estimation;
+//			this.finalLowerBound = lowerBound;
+//			this.finalUpperBound = upperBound;
+//		}else{
+//			this.initialEstimation = estimation;
+//			this.initialLowerBound = lowerBound;
+//			this.initialUpperBound = upperBound;
+//		}
 		
 	}
 
@@ -129,6 +197,27 @@ public class AnalyzeSchmutzi extends AbstractAnalyze{
 	 */
 	public String getFinalUpperBound() {
 		return finalUpperBound;
+	}
+
+	/**
+	 * @return the finalEstimationMtnotpredc
+	 */
+	public String getFinalEstimationMtnotpredc() {
+		return finalEstimationMtnotpredc;
+	}
+
+	/**
+	 * @return the finalLowerBoundMtnotpredc
+	 */
+	public String getFinalLowerBoundMtnotpredc() {
+		return finalLowerBoundMtnotpredc;
+	}
+
+	/**
+	 * @return the finalUpperBoundMtnotpredc
+	 */
+	public String getFinalUpperBoundMtnotpredc() {
+		return finalUpperBoundMtnotpredc;
 	}
 
 }
