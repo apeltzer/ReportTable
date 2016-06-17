@@ -41,6 +41,7 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 	private String numberMergedReads = OutputStrings.notFound;
 	private String perCentMergedReads = OutputStrings.notFound;
 	private String version = OutputStrings.notFound;
+	private boolean mergedOnly = false;
 	
 	/**
 	 * Constructor, the given Folder should point to the root directory of
@@ -56,12 +57,19 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 		}
 		String[] names = dataDir.list();
 		boolean found = false;
+		int numfqFiles = 0;
 		for(String name: names){
+			if(name.endsWith(".fq.gz")){
+				numfqFiles++;
+			}
 			File currFile = new File(dataDir+"/"+name);
 			if(currFile.isFile() && currFile.getName().endsWith(".log")){
 				found = true;
 				parseFile(currFile);
 			}
+		}
+		if(numfqFiles>1){
+			this.mergedOnly = true;
 		}
 		if(!found){
 		names = this.sampleFolder.list();
@@ -72,6 +80,13 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 				}
 			}
 		}
+	}
+
+	/**
+	 * @return the mergedOnly
+	 */
+	public boolean isMergedOnly() {
+		return mergedOnly;
 	}
 
 	// parse the given file for the needed information

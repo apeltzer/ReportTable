@@ -92,6 +92,8 @@ public class AnalyzeSample {
 	private String finalEstimationMtnotpredc = "";
 	private String finalLowerBoundMtnotpredc = "";
 	private String finalUpperBoundMtnotpredc = "";
+	
+	private boolean isMergedOnly = false;
 
 
 	// versions
@@ -145,6 +147,7 @@ public class AnalyzeSample {
 					this.numberMergedReads = analyzeClipAndMerge.getNumberMergedReads();
 					this.perCentMergedReads = analyzeClipAndMerge.getPerCentMergedReads();
 					this.versionClipAndMerge = analyzeClipAndMerge.getVersion();
+					this.isMergedOnly = analyzeClipAndMerge.isMergedOnly();
 				}else{
 					this.numberUsableReadsAfterMerging = OutputStrings.notRun;
 					this.numberMergedReads = OutputStrings.notRun;
@@ -410,10 +413,7 @@ public class AnalyzeSample {
 					&& !OutputStrings.notRun.equals(this.numberUsableReadsAfterMerging)
 					&& !OutputStrings.notFound.equals(this.numberUsableReadsAfterMerging)){
 				Double mappedReads = Double.parseDouble(this.totalNumMappedReadsBeforeDupRemoval);
-				Double allReads = Double.parseDouble(this.numberUsableReadsAfterMerging);
-				Double endogenuous = (mappedReads
-						/ allReads)
-						* 100.0;
+				Double endogenuous = calculateEndogenuousDNA(mappedReads);
 				this.endogenousDNA = String.format("%.3f", endogenuous);
 			}else{
 				this.endogenousDNA = OutputStrings.notFound;
@@ -427,10 +427,7 @@ public class AnalyzeSample {
 					&& !OutputStrings.notRun.equals(this.numReadsQF)
 					&& !OutputStrings.notFound.equals(this.numReadsQF)){
 				Double mappedReads = Double.parseDouble(this.mappedQF);
-				Double allReads = Double.parseDouble(this.numberUsableReadsAfterMerging);
-				Double endogenuous = (mappedReads
-						/ allReads)
-						* 100.0;
+				Double endogenuous = calculateEndogenuousDNA(mappedReads);
 				this.endogenousDNA = String.format("%.3f", endogenuous);
 			}else{
 				this.endogenousDNAQF = OutputStrings.notFound;
@@ -457,6 +454,25 @@ public class AnalyzeSample {
 		}else{
 			this.clusterFactorQF = OutputStrings.notFound;
 		}
+	}
+
+	/**
+	 * @param mappedReads
+	 * @return the endogenuous DNA content
+	 */
+	private Double calculateEndogenuousDNA(Double mappedReads) {
+		Double allReads = Double.parseDouble(this.numberUsableReadsAfterMerging);
+		if(this.isMergedOnly
+				&& !"".equals(this.numberMergedReads)
+				&& !OutputStrings.notFound.equals(this.numberMergedReads)
+				&& !OutputStrings.notRun.equals(this.numberMergedReads)
+				&& !"0".equals(this.numberMergedReads)){
+			allReads = Double.parseDouble(this.numberMergedReads);
+		}
+		Double endogenuous = (mappedReads
+				/ allReads)
+				* 100.0;
+		return endogenuous;
 	}
 
 	private boolean wasRunSuccessful(String s){
