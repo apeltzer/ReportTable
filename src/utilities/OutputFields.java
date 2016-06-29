@@ -72,6 +72,22 @@ public enum OutputFields {
 			return ", filter_type: 'range_number'";
 		}
 	},
+	NumUsableReadsAfterMerging {
+		@Override 
+		public String toString(){
+			return "# reads after C&M prior mapping";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getNumberUsableReadsAfterMerging";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
+	},
 	NumMergedReads {
 		@Override 
 		public String toString(){
@@ -102,22 +118,6 @@ public enum OutputFields {
 		@Override
 		public String getFieldType() {
 			return ", html5_data: 'data-filter', filter_type: 'range_number'";
-		}
-	},
-	NumUsableReadsAfterMerging {
-		@Override 
-		public String toString(){
-			return "# reads after C&M prior mapping";
-		}
-
-		@Override
-		public String getGetterName() {
-			return "getNumberUsableReadsAfterMerging";
-		}
-
-		@Override
-		public String getFieldType() {
-			return ", filter_type: 'range_number'";
 		}
 	},
 	TotalNumMappedReadsBeforeDupRemoval {
