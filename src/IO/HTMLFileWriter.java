@@ -188,14 +188,15 @@ public class HTMLFileWriter extends AReportWriter {
 		this.writer.println("\t\t\t\t\t\t}");
 		this.writer.println("\t\t\t\t\t}");
 		this.writer.println("\t\t\t\t],");
-		this.writer.println("\t\t\t}).yadcf(");
+		this.writer.println("\t\t\t});");//.yadcf(");
+		this.writer.println("\t\t\tyadcf.init(table.api(),");
 		this.writer.println("\t\t\t\t[");
 		int colnum=0;
 		for(String type: types){
 			this.writer.println("\t\t\t\t\t{column_number: "+colnum+type+"},");
 			colnum++;
 		}
-		this.writer.println("\t\t\t\t], 'footer');");
+		this.writer.println("\t\t\t\t]);");//, 'footer');");
 		this.writer.println("\t\t\t\ttable.fnAdjustColumnSizing();");
 		this.writer.println("\t\t\t});");
 		this.writer.println("\t\t</script>");
