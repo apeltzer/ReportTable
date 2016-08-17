@@ -15,7 +15,7 @@
  */
 
 /**
- * 
+ *
  */
 package utilities;
 
@@ -25,7 +25,7 @@ package utilities;
  */
 public enum OutputFields {
 	SampleNumber {
-		@Override 
+		@Override
 		public String toString(){
 			return "Sample number";
 		}
@@ -41,7 +41,7 @@ public enum OutputFields {
 		}
 	},
 	SampleName {
-		@Override 
+		@Override
 		public String toString(){
 			return "Sample Name";
 		}
@@ -57,7 +57,7 @@ public enum OutputFields {
 		}
 	},
 	NumRawReads {
-		@Override 
+		@Override
 		public String toString(){
 			return "# of Raw Reads prior Clip & Merge (C&M)";
 		}
@@ -73,7 +73,7 @@ public enum OutputFields {
 		}
 	},
 	NumUsableReadsAfterMerging {
-		@Override 
+		@Override
 		public String toString(){
 			return "# reads after C&M prior mapping";
 		}
@@ -89,7 +89,7 @@ public enum OutputFields {
 		}
 	},
 	NumMergedReads {
-		@Override 
+		@Override
 		public String toString(){
 			return "# of Merged Reads";
 		}
@@ -105,7 +105,7 @@ public enum OutputFields {
 		}
 	},
 	PerCentMergedReads {
-		@Override 
+		@Override
 		public String toString(){
 			return "% Merged Reads";
 		}
@@ -121,7 +121,7 @@ public enum OutputFields {
 		}
 	},
 	TotalNumMappedReadsBeforeDupRemoval {
-		@Override 
+		@Override
 		public String toString(){
 			return "# mapped reads prior RMDup";
 		}
@@ -137,7 +137,7 @@ public enum OutputFields {
 		}
 	},
 	TotalNumMappedReadsBeforeDupRemovalQF {
-		@Override 
+		@Override
 		public String toString(){
 			return "# mapped reads prior RMDup QF";
 		}
@@ -153,7 +153,7 @@ public enum OutputFields {
 		}
 	},
 	NumDupRemoved {
-		@Override 
+		@Override
 		public String toString(){
 			return "# of Duplicates removed";
 		}
@@ -169,7 +169,7 @@ public enum OutputFields {
 		}
 	},
 	MappedReadsAfterDupRemoval {
-		@Override 
+		@Override
 		public String toString(){
 			return "Mapped Reads after RMDup";
 		}
@@ -185,7 +185,7 @@ public enum OutputFields {
 		}
 	},
 	EndogenousDNA {
-		@Override 
+		@Override
 		public String toString(){
 			return "Endogenous DNA (%)";
 		}
@@ -200,8 +200,24 @@ public enum OutputFields {
 			return ", filter_type: 'range_number'";
 		}
 	},
+  EndogenousDNAQF {
+		@Override
+		public String toString(){
+			return "Endogenous DNA QF (%)";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getEndogenousDNAQF";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
+	},
 	ClusterFactor {
-		@Override 
+		@Override
 		public String toString(){
 			return "Cluster Factor";
 		}
@@ -217,7 +233,7 @@ public enum OutputFields {
 		}
 	},
 	MeanCoverage {
-		@Override 
+		@Override
 		public String toString(){
 			return "Mean Coverage";
 		}
@@ -233,7 +249,7 @@ public enum OutputFields {
 		}
 	},
 	StdDevCoverage {
-		@Override 
+		@Override
 		public String toString(){
 			return "std. dev. Coverage";
 		}
@@ -249,7 +265,7 @@ public enum OutputFields {
 		}
 	},
 	Coverage1X {
-		@Override 
+		@Override
 		public String toString(){
 			return "Coverage >= 1X";
 		}
@@ -265,7 +281,7 @@ public enum OutputFields {
 		}
 	},
 	Coverage2X {
-		@Override 
+		@Override
 		public String toString(){
 			return "Coverage >= 2X";
 		}
@@ -281,7 +297,7 @@ public enum OutputFields {
 		}
 	},
 	Coverage3X {
-		@Override 
+		@Override
 		public String toString(){
 			return "Coverage >= 3X";
 		}
@@ -297,7 +313,7 @@ public enum OutputFields {
 		}
 	},
 	Coverage4X {
-		@Override 
+		@Override
 		public String toString(){
 			return "Coverage >= 4X";
 		}
@@ -313,7 +329,7 @@ public enum OutputFields {
 		}
 	},
 	Coverage5X {
-		@Override 
+		@Override
 		public String toString(){
 			return "Coverage >= 5X";
 		}
@@ -329,7 +345,7 @@ public enum OutputFields {
 		}
 	},
 	NumSNPs {
-		@Override 
+		@Override
 		public String toString(){
 			return "# SNPs";
 		}
@@ -345,7 +361,7 @@ public enum OutputFields {
 		}
 	},
 	NumReadsMT {
-		@Override 
+		@Override
 		public String toString(){
 			return "# of reads on mitochondrium";
 		}
@@ -361,7 +377,7 @@ public enum OutputFields {
 		}
 	},
 	AVGCovMT {
-		@Override 
+		@Override
 		public String toString(){
 			return "AVG Coverage on mitochondrium";
 		}
@@ -377,7 +393,7 @@ public enum OutputFields {
 		}
 	},
 	MTNUCRatio {
-		@Override 
+		@Override
 		public String toString(){
 			return "MT/NUC Ratio";
 		}
@@ -617,7 +633,7 @@ public enum OutputFields {
 		}
 	},
 	GCContent {
-		@Override 
+		@Override
 		public String toString(){
 			return "GC content";
 		}
@@ -632,7 +648,7 @@ public enum OutputFields {
 			return ", html5_data: 'data-filter', filter_type: 'range_number'";
 		}
 	};
-	
+
 	public abstract String getGetterName();
 	public abstract String getFieldType();
 }

@@ -424,7 +424,7 @@ public class AnalyzeSample {
 				this.endogenousDNA = OutputStrings.notFound;
 			}
 		}
-		if ("".equals(this.endogenousDNA)
+		if ("".equals(this.endogenousDNAQF)
 				|| OutputStrings.notFound.equals(this.endogenousDNAQF)
 				|| OutputStrings.notRun.equals(this.endogenousDNAQF)){
 			if(!OutputStrings.notFound.equals(this.mappedQF)
@@ -433,7 +433,7 @@ public class AnalyzeSample {
 					&& !OutputStrings.notFound.equals(this.numReadsQF)){
 				Double mappedReads = Double.parseDouble(this.mappedQF);
 				Double endogenuous = calculateEndogenuousDNA(mappedReads);
-				this.endogenousDNA = String.format("%.3f", endogenuous);
+				this.endogenousDNAQF = String.format("%.3f", endogenuous);
 			}else{
 				this.endogenousDNAQF = OutputStrings.notFound;
 			}
@@ -536,9 +536,9 @@ public class AnalyzeSample {
 				case TotalNumMappedReadsBeforeDupRemovalQF:
 					outputMap.put(OutputFields.TotalNumMappedReadsBeforeDupRemovalQF, wasRunSuccessful(this.mappedQF));
 					break;
-//				case EndogenousDNAQF:
-//					outputMap.put(OutputFields.EndogenousDNAQF, wasRunSuccessful(this.endogenousDNAQF));
-//					break;
+				case EndogenousDNAQF:
+					outputMap.put(OutputFields.EndogenousDNAQF, wasRunSuccessful(this.endogenousDNAQF));
+					break;
 //				case ClusterFactorQF:
 //					outputMap.put(OutputFields.ClusterFactorQF, wasRunSuccessful(this.clusterFactorQF));
 //					break;
