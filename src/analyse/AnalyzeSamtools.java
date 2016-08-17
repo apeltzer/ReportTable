@@ -123,22 +123,22 @@ public class AnalyzeSamtools extends AbstractAnalyze {
 	 *
 	 */
 	private void calculateNumReadsAndEndogenousDNA() {
-		if(!OutputStrings.notFound.equals(this.mapped) && !OutputStrings.notFound.equals(this.unmapped)&& !OutputStrings.notFound.equals(this.mappedQF) && !OutputStrings.notFound.equals(this.unmappedQF)){
+		if(!OutputStrings.notFound.equals(this.mapped) && !OutputStrings.notFound.equals(this.unmapped) ){
 			Double mappedReads = Double.parseDouble(this.mapped);
 			Double unmappedReads = Double.parseDouble(this.unmapped);
 			Double numberReads = mappedReads + unmappedReads;
 			this.numReads = String.format("%.0f", numberReads);
 			this.endogenousDNA = String.format("%.3f", (mappedReads / numberReads) * 100);
-			if(this.mappedQF.length() > 0 && !this.mapped.equals(this.mappedQF)){
+			if(!OutputStrings.notFound.equals(this.mappedQF) && !OutputStrings.notFound.equals(this.unmappedQF) && this.mappedQF.length() > 0 && !this.mapped.equals(this.mappedQF)){
 				Double mappedReadsQF = Double.parseDouble(this.mappedQF);
 				Double unmappedReadsQF = Double.parseDouble(this.unmappedQF);
 				Double numberReadsQF = mappedReadsQF + unmappedReadsQF;
 				this.numReadsQF = String.format("%s", numberReadsQF);
 				this.endogenousDNAQF = String.format("%.3f", (mappedReadsQF / numberReads) * 100);
-				this.endogenousDNA = this.endogenousDNAQF;
-				this.endogenousDNAQF = OutputStrings.notFound;
-			}
-		}
+      } else {
+        this.endogenousDNAQF = OutputStrings.notFound;
+		  }
+    }
 	}
 
 	private void parseFlagstatsFile(File currFile) {
