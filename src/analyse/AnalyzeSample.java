@@ -15,7 +15,7 @@
  */
 
 /**
- * 
+ *
  */
 package analyse;
 
@@ -92,7 +92,7 @@ public class AnalyzeSample {
 	private String finalEstimationMtnotpredc = "";
 	private String finalLowerBoundMtnotpredc = "";
 	private String finalUpperBoundMtnotpredc = "";
-	
+
 	private boolean isMergedOnly = false;
 
 
@@ -352,7 +352,7 @@ public class AnalyzeSample {
 //					this.snpccCoverageOnHQSites = analyzeGATKGenotyper.getCoverageHQ();
 //					this.snpccCoverageOnLQSites = analyzeGATKGenotyper.getCoverageLQ();
 //					this.snpccCoverageOnVerifiedSites = analyzeGATKGenotyper.getCoverageVerified();
-//				}else{					
+//				}else{
 //					this.snpccNumOfPositionsFoundByGenotyper = OutputStrings.notRun;
 //					this.snpccNumOfCheckedPositionAgainsList = OutputStrings.notRun;
 //					this.snpccPercentageOfSNPPositionsCovered = OutputStrings.notRun;
@@ -401,6 +401,11 @@ public class AnalyzeSample {
 				&& !OutputStrings.notFound.equals(this.totalNumMappedReadsBeforeDupRemoval)
 				&& !OutputStrings.notRun.equals(this.totalNumMappedReadsBeforeDupRemoval)){
 			Double mappedbefore = Double.parseDouble(this.totalNumMappedReadsBeforeDupRemoval);
+      if ( !"".equals(this.mappedQF)
+          && !OutputStrings.notFound.equals(this.mappedQF)
+          && !OutputStrings.notRun.equals(this.mappedQF) ) {
+        mappedbefore = Double.parseDouble(this.mappedQF);
+      }
 			Double mappedafter = Double.parseDouble(this.mappedReadsAfterDupRemoval);
 			Double removed = mappedbefore - mappedafter;
 			this.numberDuplicatesRemoved = String.format(Locale.ENGLISH, "%d", removed.longValue());
