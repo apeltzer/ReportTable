@@ -431,9 +431,9 @@ public class AnalyzeSample {
 					&& !OutputStrings.notFound.equals(this.mappedQF)
 					&& !OutputStrings.notRun.equals(this.numReadsQF)
 					&& !OutputStrings.notFound.equals(this.numReadsQF)){
-				Double mappedReads = Double.parseDouble(this.mappedQF);
-				Double endogenuous = calculateEndogenuousDNA(mappedReads);
-				this.endogenousDNAQF = String.format("%.3f", endogenuous);
+				Double mappedReadsQF = Double.parseDouble(this.mappedQF);
+				Double endogenuousQF = calculateEndogenuousDNA(mappedReadsQF);
+				this.endogenousDNAQF = String.format("%.3f", endogenuousQF);
 			}else{
 				this.endogenousDNAQF = OutputStrings.notFound;
 			}
