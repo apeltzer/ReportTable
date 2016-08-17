@@ -1053,6 +1053,12 @@ public class AnalyzeSample {
 	public String getEndogenousDNA() {
 		return endogenousDNA;
 	}
+  /**
+	* @return the endogenousDNA after quality filtering
+	*/
+	public String getEndogenousDNAQF() {
+		return endogenousDNAQF;
+	}
 
 	/**
 	 * @return the meanCoverage
