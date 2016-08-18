@@ -157,6 +157,11 @@ public class AnalyzeSample {
 				break;
 			case QualityTrimming:
 				break;
+      case CircularMapper:
+        if (this.runPipelines.containsKey(Pipelines.CircularMapper)
+            && this.runPipelines.get(Pipelines.CircularMapper)){
+          System.out.println("Run analyseCircularMapper");
+        }
 			case Mapping:
 				if(this.runPipelines.containsKey(Pipelines.Mapping)
 						&& this.runPipelines.get(Pipelines.Mapping)){

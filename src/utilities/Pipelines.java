@@ -15,7 +15,7 @@
  */
 
 /**
- * 
+ *
  */
 package utilities;
 
@@ -25,7 +25,7 @@ package utilities;
  */
 public enum Pipelines {
 	FastQC {
-		@Override 
+		@Override
 		public String toString(){
 //			return "0-FastQC";
 			return "0-";
@@ -45,78 +45,85 @@ public enum Pipelines {
 			return "2-";
 		}
 	},
+  CircularMapper {
+		@Override
+		public String toString(){
+//			return "3-Mapping";
+			return "3-";
+			}
+	},
 	Mapping {
-		@Override 
+		@Override
 		public String toString(){
 //			return "3-Mapping";
 			return "3-";
 			}
 	},
 	Samtools {
-		@Override 
+		@Override
 		public String toString(){
 //			return "4-Samtools";
 			return "4-";
 			}
 		},
 	DeDup {
-		@Override 
+		@Override
 		public String toString(){
 //			return "5-BetterRMDup";
 			return "5-";
 			}
 		},
 	Schmutzi {
-		@Override 
+		@Override
 		public String toString(){
 //				return "5-BetterRMDup";
 		return "5-";
 		}
 	},
 	QualiMap {
-		@Override 
+		@Override
 		public String toString(){
 //			return "6-QualiMap";
 			return "6-";
 			}
 		},
 	MapDamage {
-		@Override 
+		@Override
 		public String toString(){
 //			return "7-MapDamage";
 			return "7-";
 			}
 		},
 	Preseq {
-		@Override 
+		@Override
 		public String toString(){
 //			return "8-Preseq";
 			return "8-";
 			}
 		},
 	GATKBasics {
-		@Override 
+		@Override
 		public String toString(){
 //			return "9-GATKBasics";
 			return "9-";
 			}
 		},
 	GATKGenotyper {
-		@Override 
+		@Override
 		public String toString(){
 //			return "10-GATKGenotyper";
 			return "10-";
 			}
 		},
 	GATKVariantFilter {
-		@Override 
+		@Override
 		public String toString(){
 //			return "11-GATKVariantFilter";
 			return "11-";
 			}
 		},
 	VCF2Genome {
-		@Override 
+		@Override
 		public String toString(){
 //			return "12-VCF2Genome";
 			return "12-";
