@@ -165,13 +165,7 @@ public class AnalyzeSample {
       case CircularMapper:
         if (this.runPipelines.containsKey(Pipelines.CircularMapper)
             && this.runPipelines.get(Pipelines.CircularMapper)){
-          System.out.println("Run analyseCircularMapper");
           AnalyzeMapper analyzeMapper = new AnalyzeMapper(this.sampleFolder, new HashSet<String>(Arrays.asList("_realigned.bam.stats")));// the set excludes files
-          System.out.println("numReads: "+analyzeMapper.getNumReads());
-          System.out.println("mapped: "+analyzeMapper.getMapped());
-          System.out.println("endo: "+analyzeMapper.getEndogenousDNA());
-          System.out.println("this.numberUsableReadsAfterMerging: "+this.numberUsableReadsAfterMerging);
-          System.out.println("Done circularMapper");
 
 
           if("".equals(this.totalNumMappedReadsBeforeDupRemovalGenome)
@@ -191,11 +185,7 @@ public class AnalyzeSample {
 			case Mapping:
 				if(this.runPipelines.containsKey(Pipelines.Mapping)
 						&& this.runPipelines.get(Pipelines.Mapping)){
-          System.out.println("Run analyzeMapper");
 					AnalyzeMapper analyzeMapper = new AnalyzeMapper(this.sampleFolder);
-          System.out.println("numReads: "+analyzeMapper.getNumReads());
-          System.out.println("mapped: "+analyzeMapper.getMapped());
-          System.out.println("endo: "+analyzeMapper.getEndogenousDNA());
 					this.versionMapper = analyzeMapper.getVersion();
 					if("".equals(this.totalNumMappedReadsBeforeDupRemoval)
 							|| OutputStrings.notFound.equals(this.totalNumMappedReadsBeforeDupRemoval)
@@ -449,7 +439,6 @@ public class AnalyzeSample {
           && !OutputStrings.notFound.equals(this.totalNumMappedReadsBeforeDupRemoval)
 					&& !OutputStrings.notRun.equals(this.numberUsableReadsAfterMerging)
 					&& !OutputStrings.notFound.equals(this.numberUsableReadsAfterMerging)){
-      System.out.println("Calculate circularMapper endogenousDNA");
       Double mappedReads = Double.parseDouble(this.totalNumMappedReadsBeforeDupRemoval);
       Double endogenuous = calculateEndogenuousDNA(mappedReads);
       this.endogenousDNA = String.format("%.3f", endogenuous);

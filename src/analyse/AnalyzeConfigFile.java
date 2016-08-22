@@ -81,7 +81,7 @@ public class AnalyzeConfigFile {
 			System.err.println("An error occured while reading the config file:");
 			System.err.println(this.configFile.getAbsolutePath());
 			System.err.println("Analysis will be continued without analyzing the configuration file");
-      System.err.println(e.getMessage());
+      //System.err.println(e.getMessage());
 		}
 		// if the configuration file could be read, analyze it.
 		this.runPipelines = new HashMap<Pipelines, Boolean>();

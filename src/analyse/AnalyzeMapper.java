@@ -59,11 +59,7 @@ public class AnalyzeMapper extends AbstractAnalyze{
 			}
 		}
 		File dataDir = this.getCurrFolder(Pipelines.Mapping);
-//		if(dataDir.exists()){
 		if(dataDir != null && dataDir.list() != null){
-			//names = dataDir.list();
-      //System.out.println(Arrays.asList(dataDir.list()).stream().collect(Collectors.toList()));
-      //System.out.println(Arrays.asList(dataDir.list()).stream().filter(n -> excludeMatchingEndsWithStatsFiles.stream().filter( e -> n.endsWith(e) ).collect(Collectors.counting()) == 0 ).collect(Collectors.toList()));
       List<String> namesList = Arrays.asList(dataDir.list()).stream().filter(n -> excludeMatchingEndsWithStatsFiles.stream().filter( e -> n.endsWith(e) ).collect(Collectors.counting()) == 0 ).collect(Collectors.toList());
       names = namesList.toArray(new String [namesList.size()]);
 			for(String name:names){
