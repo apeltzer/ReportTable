@@ -19,12 +19,16 @@
  */
 package analyse;
 
+import java.util.Arrays;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+
+
 
 import utilities.OutputFields;
 import utilities.OutputStrings;
@@ -48,6 +52,7 @@ public class AnalyzeSample {
 	private String numberMergedReads = "";
 	private String perCentMergedReads = "";
 	private String totalNumMappedReadsBeforeDupRemoval = "";
+  private String totalNumMappedReadsBeforeDupRemovalGenome = "";
 	private String numberDuplicatesRemoved = "";
 	private String numMitochondrealReads = "";
 	private String avgCoverageOnMt = "";
@@ -157,6 +162,26 @@ public class AnalyzeSample {
 				break;
 			case QualityTrimming:
 				break;
+      case CircularMapper:
+        if (this.runPipelines.containsKey(Pipelines.CircularMapper)
+            && this.runPipelines.get(Pipelines.CircularMapper)){
+          AnalyzeMapper analyzeMapper = new AnalyzeMapper(this.sampleFolder, new HashSet<String>(Arrays.asList("_realigned.bam.stats")));// the set excludes files
+
+
+          if("".equals(this.totalNumMappedReadsBeforeDupRemovalGenome)
+							|| OutputStrings.notFound.equals(this.totalNumMappedReadsBeforeDupRemovalGenome)
+							|| OutputStrings.notRun.equals(this.totalNumMappedReadsBeforeDupRemovalGenome)){
+						this.totalNumMappedReadsBeforeDupRemovalGenome = analyzeMapper.getMapped();
+					}
+
+          if("".equals(this.numberUsableReadsAfterMerging)
+							|| OutputStrings.notFound.equals(this.numberUsableReadsAfterMerging)
+							|| OutputStrings.notRun.equals(this.numberUsableReadsAfterMerging)){
+						this.numberUsableReadsAfterMerging = analyzeMapper.getNumReads();
+					}
+          // The endogenousDNA calculation is done after looping through all the pipelines
+
+        }
 			case Mapping:
 				if(this.runPipelines.containsKey(Pipelines.Mapping)
 						&& this.runPipelines.get(Pipelines.Mapping)){
@@ -410,6 +435,14 @@ public class AnalyzeSample {
 			Double removed = mappedbefore - mappedafter;
 			this.numberDuplicatesRemoved = String.format(Locale.ENGLISH, "%d", removed.longValue());
 		}
+    if ( this.runPipelines.containsKey(Pipelines.CircularMapper)
+          && !OutputStrings.notFound.equals(this.totalNumMappedReadsBeforeDupRemoval)
+					&& !OutputStrings.notRun.equals(this.numberUsableReadsAfterMerging)
+					&& !OutputStrings.notFound.equals(this.numberUsableReadsAfterMerging)){
+      Double mappedReads = Double.parseDouble(this.totalNumMappedReadsBeforeDupRemoval);
+      Double endogenuous = calculateEndogenuousDNA(mappedReads);
+      this.endogenousDNA = String.format("%.3f", endogenuous);
+    }
 		if ("".equals(this.endogenousDNA)
 				|| OutputStrings.notFound.equals(this.endogenousDNA)
 				|| OutputStrings.notRun.equals(this.endogenousDNA)){
@@ -513,6 +546,9 @@ public class AnalyzeSample {
 				case PerCentMergedReads:
 					outputMap.put(OutputFields.PerCentMergedReads, wasRunSuccessful(this.perCentMergedReads));
 					break;
+        case TotalNumMappedReadsBeforeDupRemovalGenome:
+          outputMap.put(OutputFields.TotalNumMappedReadsBeforeDupRemovalGenome, wasRunSuccessful(this.totalNumMappedReadsBeforeDupRemovalGenome));
+          break;
 				case TotalNumMappedReadsBeforeDupRemoval:
 					outputMap.put(OutputFields.TotalNumMappedReadsBeforeDupRemoval, wasRunSuccessful(this.totalNumMappedReadsBeforeDupRemoval));
 					break;
@@ -1017,6 +1053,13 @@ public class AnalyzeSample {
 	 */
 	public String getPerCentMergedReads() {
 		return perCentMergedReads;
+	}
+
+	/**
+	 * @return the totalNumMappedReadsBeforeDupRemoval
+	 */
+	public String getTotalNumMappedReadsBeforeDupRemovalGenome() {
+		return totalNumMappedReadsBeforeDupRemovalGenome;
 	}
 
 	/**

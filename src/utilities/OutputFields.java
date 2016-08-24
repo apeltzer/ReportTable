@@ -120,6 +120,22 @@ public enum OutputFields {
 			return ", html5_data: 'data-filter', filter_type: 'range_number'";
 		}
 	},
+  TotalNumMappedReadsBeforeDupRemovalGenome {
+    @Override
+    public String toString(){
+      return "# mapped reads prior RMDup (genome)";
+    }
+
+    @Override
+    public String getGetterName() {
+      return "getTotalNumMappedReadsBeforeDupRemovalGenome";
+    }
+
+    @Override
+    public String getFieldType() {
+      return ", filter_type: 'range_number'";
+    }
+  },
 	TotalNumMappedReadsBeforeDupRemoval {
 		@Override
 		public String toString(){

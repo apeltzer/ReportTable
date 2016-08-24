@@ -15,7 +15,7 @@
  */
 
 /**
- * 
+ *
  */
 package analyse;
 
@@ -23,6 +23,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import utilities.OutputStrings;
 import utilities.Pipelines;
@@ -32,14 +38,18 @@ import utilities.Pipelines;
  *
  */
 public class AnalyzeMapper extends AbstractAnalyze{
-	
+
 	private String version = OutputStrings.notFound;
 	private String mapped = OutputStrings.notFound;
 	private String endogenousDNA = OutputStrings.notFound;
 	private String numReads = OutputStrings.notFound;
 	private String unmapped = OutputStrings.notFound;
 
-	public AnalyzeMapper(File sampleFolder) {
+  public AnalyzeMapper(File sampleFolder) {
+    this(sampleFolder, Collections.emptySet());
+  }
+
+	public AnalyzeMapper(File sampleFolder, Set<String> excludeMatchingEndsWithStatsFiles) {
 		super(sampleFolder);
 		String[] names = this.sampleFolder.list();
 		for(String name: names){
@@ -49,9 +59,9 @@ public class AnalyzeMapper extends AbstractAnalyze{
 			}
 		}
 		File dataDir = this.getCurrFolder(Pipelines.Mapping);
-//		if(dataDir.exists()){
-		if(dataDir != null){
-			names = dataDir.list();
+		if(dataDir != null && dataDir.list() != null){
+      List<String> namesList = Arrays.asList(dataDir.list()).stream().filter(n -> excludeMatchingEndsWithStatsFiles.stream().filter( e -> n.endsWith(e) ).collect(Collectors.counting()) == 0 ).collect(Collectors.toList());
+      names = namesList.toArray(new String [namesList.size()]);
 			for(String name:names){
 				File currFile = new File(dataDir+"/"+name);
 				if(currFile.isFile()){
@@ -69,7 +79,7 @@ public class AnalyzeMapper extends AbstractAnalyze{
 			this.endogenousDNA = String.format("%.3f", (mappedReads / numberReads) * 100);
 		}
 	}
-	
+
 	private void parseFlagstatsFile(File currFile) {
 		// TODO Auto-generated method stub
 		Integer all = 0;
@@ -111,9 +121,9 @@ public class AnalyzeMapper extends AbstractAnalyze{
 					}
 				}
 			} catch (IOException e) {
-				
+
 			}
-			
+
 		}
 
 		/**
