@@ -1,6 +1,17 @@
 group 'com.uni-tuebingen.de.it.eager.ReportTable'
 version '1.92.17'
 
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+
+eclipse.classpath.file {
+    withXml { xml ->
+        def node = xml.asNode()
+        node.remove( node.find { it.@path == 'org.eclipse.jst.j2ee.internal.web.container' } )
+        node.appendNode( 'classpathentry', [ kind: 'con', path: 'org.eclipse.jst.j2ee.internal.web.container', exported: 'true'])
+    }
+}
+
 
 buildscript {
     repositories {
