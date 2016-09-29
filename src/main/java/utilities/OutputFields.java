@@ -488,7 +488,7 @@ public enum OutputFields {
 			return ", filter_type: 'range_number'";
 		}
 	},
-	DamageLgDistribution{
+	DamageMeanFragmentLength{
 		@Override
 		public String toString(){
 			return "average fragment length";
@@ -497,6 +497,23 @@ public enum OutputFields {
 		@Override
 		public String getGetterName() {
 			return "getMeanFragmentLength";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
+	},
+
+	DamageMedianFragmentLength{
+		@Override
+		public String toString(){
+			return "median fragment length";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getMedianFragmentLength";
 		}
 
 		@Override

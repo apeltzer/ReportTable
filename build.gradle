@@ -1,5 +1,5 @@
 group 'com.uni-tuebingen.de.it.eager.ReportTable'
-version '1.92.17'
+version '1.92.18'
 
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'

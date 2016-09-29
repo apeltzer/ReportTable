@@ -39,6 +39,7 @@ public class AnalyzeMapDamage extends AbstractAnalyze {
 	private String FirstBase5 = OutputStrings.notFound;
 	private String SecondBase5 = OutputStrings.notFound;
 	private String meanFragmentLength = OutputStrings.notFound;
+	private String medianFragmentLength = OutputStrings.notFound;
 
 
 	public AnalyzeMapDamage(File sampleFolder) {
@@ -150,6 +151,9 @@ public class AnalyzeMapDamage extends AbstractAnalyze {
 			}
 		} catch (IOException e) {
 		}
+		
+		// sort the fragments by their length 
+		fragments.sort((o1,o2) -> o1.get(0).compareTo(o2.get(0)));
 
 		ArrayList<Integer> pair;
 		int length_sum = 0;
@@ -160,9 +164,35 @@ public class AnalyzeMapDamage extends AbstractAnalyze {
 			number_of_fragments += pair.get(1);
 			length_sum += pair.get(0) * pair.get(1);
 		}
-
 		this.meanFragmentLength = Double.toString(Math.round((double) length_sum / number_of_fragments * 100.0) / 100.0);
-
+		
+		// calculate median fragment length
+		int medianFragment1 = 0;
+		int medianFragment2 = 0;
+		if(number_of_fragments %2 == 1){
+			medianFragment1 = (number_of_fragments+1)/2;
+			medianFragment2 = (number_of_fragments+1)/2;
+		}else{
+			medianFragment1 = number_of_fragments/2;
+			medianFragment2 = (number_of_fragments/2)+1;
+		}
+		int currentFragment = 0;
+		for(int i = 0; i < fragments.size(); i++){
+			pair = fragments.get(i);
+			currentFragment += pair.get(1);
+			if((currentFragment >= medianFragment1) && (currentFragment >= medianFragment2)){
+				this.medianFragmentLength = Double.toString((2.0*(double)pair.get(0)) / 2.0);
+				break;
+			}else if(currentFragment == medianFragment1){
+				pair = fragments.get(i);
+				int length1 = pair.get(0);
+				pair = fragments.get(i+1);
+				int length2 = pair.get(0);
+				this.medianFragmentLength = Double.toString(((double) length1 + (double) length2)/2.0);
+				break;
+			}
+		}
+		//TODO
 	}
 
 
@@ -203,6 +233,14 @@ public class AnalyzeMapDamage extends AbstractAnalyze {
 	 */
 	public String getMeanFragmentLength() {
 		return meanFragmentLength;
+	}
+
+
+	/**
+	 * @return the median length of the reads
+	 */
+	public String getMedianFragmentLength() {
+		return medianFragmentLength;
 	}
 
 }

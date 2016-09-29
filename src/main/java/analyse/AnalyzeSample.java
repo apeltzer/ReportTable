@@ -83,6 +83,7 @@ public class AnalyzeSample {
 	private String damage5Prime1 = "";
 	private String damage5Prime2 = "";
 	private String meanFragmentLength = "";
+	private String medianFragmentLength = "";
 	private String mappedQF = "";
 	private String endogenousDNAQF = "";
 	private String numReadsQF = "";
@@ -353,12 +354,14 @@ public class AnalyzeSample {
 					this.damage5Prime1 = analyzeMapDamage.getFirstBase5();
 					this.damage5Prime2 = analyzeMapDamage.getSecondBase5();
 					this.meanFragmentLength = analyzeMapDamage.getMeanFragmentLength();
+					this.medianFragmentLength = analyzeMapDamage.getMedianFragmentLength();
 				}else{
 					this.damage3Prime1 = OutputStrings.notRun;
 					this.damage3Prime2 = OutputStrings.notRun;
 					this.damage5Prime1 = OutputStrings.notRun;
 					this.damage5Prime2 = OutputStrings.notRun;
 					this.meanFragmentLength = OutputStrings.notRun;
+					this.medianFragmentLength = OutputStrings.notRun;
 				}
 				break;
 			case Preseq:
@@ -647,8 +650,11 @@ public class AnalyzeSample {
 				case Damage5Prime2nd:
 					outputMap.put(OutputFields.Damage5Prime2nd, wasRunSuccessful(this.damage5Prime2));
 					break;
-				case DamageLgDistribution:
-					outputMap.put(OutputFields.DamageLgDistribution, wasRunSuccessful(this.meanFragmentLength));
+				case DamageMeanFragmentLength:
+					outputMap.put(OutputFields.DamageMeanFragmentLength, wasRunSuccessful(this.meanFragmentLength));
+					break;
+				case DamageMedianFragmentLength:
+					outputMap.put(OutputFields.DamageMedianFragmentLength, wasRunSuccessful(this.medianFragmentLength));
 					break;
 				case InitialContamination:
 					outputMap.put(OutputFields.InitialContamination, wasRunSuccessful(this.initialEstimation));
@@ -1206,6 +1212,13 @@ public class AnalyzeSample {
 	 */
 	public String getMeanFragmentLength() {
 		return meanFragmentLength;
+	}
+
+	/**
+	 * @return the meanFragmentLength
+	 */
+	public String getMedianFragmentLength() {
+		return medianFragmentLength;
 	}
 
 	/**
