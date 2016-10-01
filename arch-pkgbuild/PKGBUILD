@@ -1,0 +1,20 @@
+# Contributor: Alex Peltzer <alex.peltzer@gmail.com>
+# Maintainer: Alex Seitz <alex88.seitz@gmail.com>
+
+pkgname=eager-reportengine
+pkgver=1.92.18
+pkgrel=1
+pkgdesc="A report engine for the EAGER pipeline."
+arch=('any')
+url="http://it.inf.uni-tuebingen.de/?page_id=161"
+license=('custom')
+depends=('java-environment')
+source=("ReportTable-${pkgver}.jar" "starter.sh")
+noextract=("ReportTable-${pkgver}.jar")
+md5sums=('SKIP' 'SKIP')
+package() {
+  install -D -m755 "${srcdir}/ReportTable-${pkgver}.jar" "${pkgdir}/opt/$pkgname/ReportTable-${pkgver}.jar"
+  install -D -m755 "${srcdir}/starter.sh" "${pkgdir}/opt/$pkgname/starter.sh"
+  install -D -m755 "${pkgdir}/opt/$pkgname/starter.sh" "${pkgdir}/usr/bin/ReportTable"
+}
+
