@@ -283,7 +283,7 @@ public enum OutputFields {
 	Coverage1X {
 		@Override
 		public String toString(){
-			return "Coverage >= 1X";
+			return "Coverage >= 1X in %";
 		}
 
 		@Override
@@ -299,7 +299,7 @@ public enum OutputFields {
 	Coverage2X {
 		@Override
 		public String toString(){
-			return "Coverage >= 2X";
+			return "Coverage >= 2X in %";
 		}
 
 		@Override
@@ -315,7 +315,7 @@ public enum OutputFields {
 	Coverage3X {
 		@Override
 		public String toString(){
-			return "Coverage >= 3X";
+			return "Coverage >= 3X in %";
 		}
 
 		@Override
@@ -331,7 +331,7 @@ public enum OutputFields {
 	Coverage4X {
 		@Override
 		public String toString(){
-			return "Coverage >= 4X";
+			return "Coverage >= 4X in %";
 		}
 
 		@Override
@@ -347,7 +347,7 @@ public enum OutputFields {
 	Coverage5X {
 		@Override
 		public String toString(){
-			return "Coverage >= 5X";
+			return "Coverage >= 5X in %";
 		}
 
 		@Override
