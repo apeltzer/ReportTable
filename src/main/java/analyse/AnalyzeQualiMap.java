@@ -155,7 +155,6 @@ public class AnalyzeQualiMap extends AbstractAnalyze {
 						this.coverage1x = splitted[3];
 						this.coverage1x = this.coverage1x.replace(",", ".");
 						this.coverage1x = this.coverage1x.replace("%", "");
-						this.coverage1x += OutputStrings.perCent;
 					}
 				}else if(currLine.contains(">= 2X")){
 					String[] splitted = currLine.trim().split(" ");
@@ -163,7 +162,6 @@ public class AnalyzeQualiMap extends AbstractAnalyze {
 						this.coverage2x = splitted[3];
 						this.coverage2x = this.coverage2x.replace(",", ".");
 						this.coverage2x = this.coverage2x.replace("%", "");
-						this.coverage2x += OutputStrings.perCent;
 					}
 				}else if(currLine.contains(">= 3X")){
 					String[] splitted = currLine.trim().split(" ");
@@ -171,7 +169,6 @@ public class AnalyzeQualiMap extends AbstractAnalyze {
 						this.coverage3x = splitted[3];
 						this.coverage3x = this.coverage3x.replace(",", ".");
 						this.coverage3x = this.coverage3x.replace("%", "");
-						this.coverage3x += OutputStrings.perCent;
 					}
 				}else if(currLine.contains(">= 4X")){
 					String[] splitted = currLine.trim().split(" ");
@@ -179,7 +176,6 @@ public class AnalyzeQualiMap extends AbstractAnalyze {
 						this.coverage4x = splitted[3];
 						this.coverage4x = this.coverage4x.replace(",", ".");
 						this.coverage4x = this.coverage4x.replace("%", "");
-						this.coverage4x += OutputStrings.perCent;
 					}
 				}else if(currLine.contains(">= 5X")){
 					String[] splitted = currLine.trim().split(" ");
@@ -187,7 +183,6 @@ public class AnalyzeQualiMap extends AbstractAnalyze {
 						this.coverage5x = splitted[3];
 						this.coverage5x = this.coverage5x.replace(",", ".");
 						this.coverage5x = this.coverage5x.replace("%", "");
-						this.coverage5x += OutputStrings.perCent;
 					}
 				}
 			}
