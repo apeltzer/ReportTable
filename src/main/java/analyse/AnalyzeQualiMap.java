@@ -134,7 +134,7 @@ public class AnalyzeQualiMap extends AbstractAnalyze {
 					String[] lineSplitted = currLine.split(" ");
 					this.gc = lineSplitted[lineSplitted.length-1].trim();
 					this.gc = this.gc.replace("%", "").replace(",", ".").trim();
-					this.gc += OutputStrings.perCent;
+//					this.gc += OutputStrings.perCent;
 				}else if(currLine.contains("mean coverageData")){
 					String[] splitted = currLine.split(" ");
 					this.meanCoverage = splitted[splitted.length-1];

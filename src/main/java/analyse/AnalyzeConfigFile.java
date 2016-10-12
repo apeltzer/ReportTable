@@ -71,11 +71,11 @@ public class AnalyzeConfigFile {
 			System.err.println("Configuration File not found:");
 			System.err.println(this.configFile.getAbsolutePath());
 			System.err.println("Analysis will be continued without analyzing the configuration file");
-		} catch (@SuppressWarnings("hiding") IOException e) {
-			this.analysisSuccessful = false;
-			System.err.println("Could not read config File:");
-			System.err.println(this.configFile.getAbsolutePath());
-			System.err.println("Analysis will be continued without analyzing the configuration file");
+//		} catch (@SuppressWarnings("hiding") IOException e) {
+//			this.analysisSuccessful = false;
+//			System.err.println("Could not read config File:");
+//			System.err.println(this.configFile.getAbsolutePath());
+//			System.err.println("Analysis will be continued without analyzing the configuration file");
 		} catch (Exception e){
 			this.analysisSuccessful = false;
 			System.err.println("An error occured while reading the config file:");
