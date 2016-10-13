@@ -27,6 +27,6 @@ public class OutputStrings {
 	
 	public static final String notRun = "NA";
 	public static final String notFound = "NF";
-	public static final String perCent = " %";
+	public static final String perCent = "";
 
 }
