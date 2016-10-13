@@ -87,10 +87,10 @@ bintray {
         licenses = ['GPL-3.0']
         vcsUrl = "https://github.com/apeltzer/ReportTable"
         version {
-            name = '1.92.18'
+            name = project.version
             desc = 'The Report Generation Engine for the EAGER Pipeline'
             released  = new Date()
-            vcsTag = '1.92.18'
+            vcsTag = project.version
             attributes = ['gradle-plugin': 'com.use.less:com.use.less.gradle:gradle-useless-plugin']
         }
 
