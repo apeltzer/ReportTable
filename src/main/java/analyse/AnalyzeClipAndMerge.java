@@ -127,7 +127,6 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 						|| currLine.contains("Percentage of usable merged reads")){
 					String[] splittedLine = currLine.split(" ");
 					this.perCentMergedReads = splittedLine[splittedLine.length-2].trim();
-					this.perCentMergedReads;
 					break;
 				}
 			}
