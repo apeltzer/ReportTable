@@ -2,6 +2,7 @@
 The Report Generation Engine for the EAGER Pipeline. Generates CSV formatted Report Tables for output from the EAGER Pipeline
 
 [![Build Status](https://lambda.informatik.uni-tuebingen.de/jenkins/buildStatus/icon?job=ReportTable)](https://lambda.informatik.uni-tuebingen.de/jenkins/view/EAGER/job/ReportTable/)
+[ ![Download](https://api.bintray.com/packages/apeltzer/EAGER/ReportTable/images/download.svg) ](https://bintray.com/apeltzer/EAGER/ReportTable/_latestVersion)
 
 Author: Alexander Seitz <alexander.seitz@uni-tuebingen.de> 
 
