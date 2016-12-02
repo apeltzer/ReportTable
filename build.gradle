@@ -1,5 +1,5 @@
 group 'com.uni-tuebingen.de.it.eager.ReportTable'
-version '1.92.20'
+version '1.92.21'
 
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
@@ -51,7 +51,7 @@ sourceSets {
 
 dependencies {
     compile group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.9'
-    compile 'com.uni-tuebingen.de.it.eager:EAGER-lib:1.92.16'
+    compile 'com.uni-tuebingen.de.it.eager:EAGER-lib:1.92+'
 }
 
 jar {
@@ -73,7 +73,6 @@ publishing {
         }
     }
 }
-
 
 bintray {
     user = bintrayUser

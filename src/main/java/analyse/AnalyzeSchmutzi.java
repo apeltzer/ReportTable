@@ -45,6 +45,9 @@ public class AnalyzeSchmutzi extends AbstractAnalyze{
 
 	public AnalyzeSchmutzi(File sampleFolder) {
 		super(sampleFolder);
+		if(this.getCurrFolder(Pipelines.DeDup) == null){
+			return;
+		}
 		boolean oldStyle = analyzeOldStyle();
 		if(!oldStyle){
 			analyzeNewStyle();
