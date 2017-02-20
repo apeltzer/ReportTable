@@ -232,6 +232,23 @@ public enum OutputFields {
 			return ", filter_type: 'range_number'";
 		}
 	},
+		EndogenousDNACapture {
+		@Override
+		public String toString(){
+			return "Endogenous DNA Cap (%)";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getEndogenousDNACapture";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", filter_type: 'range_number'";
+		}
+
+		},
 	ClusterFactor {
 		@Override
 		public String toString(){

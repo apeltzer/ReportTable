@@ -130,6 +130,13 @@ public class AnalyzeConfigFile {
 			}else{
 				this.runPipelines.put(Pipelines.QualiMap, false);
 			}
+
+			if (communicator.isSnpcapturedata() ) {
+				this.runPipelines.put(Pipelines.CaptureOnTarget, true);
+			}else{
+				this.runPipelines.put(Pipelines.CaptureOnTarget, false);
+			}
+
 			if(communicator.isRun_mapdamage()){
 				this.runPipelines.put(Pipelines.MapDamage, true);
 			}else{

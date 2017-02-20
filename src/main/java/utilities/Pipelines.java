@@ -80,6 +80,13 @@ public enum Pipelines {
 		return "5-";
 		}
 	},
+		CaptureOnTarget {
+		@Override
+		public String toString(){
+//			return "5-DeDup"
+			return "5-";
+		}
+		},
 	QualiMap {
 		@Override
 		public String toString(){
