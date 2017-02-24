@@ -52,7 +52,8 @@ public class AnalyzeSample {
 	private String numberMergedReads = "";
 	private String perCentMergedReads = "";
 	private String totalNumMappedReadsBeforeDupRemoval = "";
-  private String totalNumMappedReadsBeforeDupRemovalGenome = "";
+	private String totalNumMappedReadsBeforeDupRemovalGenome = "";
+	private String numCaptureOnTargetReads = "";
 	private String numberDuplicatesRemoved = "";
 	private String numMitochondrealReads = "";
 	private String avgCoverageOnMt = "";
@@ -61,6 +62,7 @@ public class AnalyzeSample {
 //	private String perCentMappedReads = "";
 	private String gcContent = "";
 	private String endogenousDNA = "";
+	private String endogenousDNACapture = "";
 	private String clusterFactor = "";
 //	private String snpccNumOfPositionsFoundByGenotyper = "";
 //	private String snpccNumOfCheckedPositionAgainsList = "";
@@ -345,6 +347,21 @@ public class AnalyzeSample {
 					this.coverage5x = OutputStrings.notRun;
 				}
 				break;
+				case CaptureOnTarget:
+					if (this.runPipelines.containsKey(Pipelines.CaptureOnTarget)
+							&& this.runPipelines.get(Pipelines.CaptureOnTarget)) {
+						AnalyzeCaptureOnTarget analyzeCaptureOnTarget = new AnalyzeCaptureOnTarget(this.sampleFolder);
+						this.numCaptureOnTargetReads = analyzeCaptureOnTarget.getNumCaptureOnTargetReads();
+
+						if (!OutputStrings.notFound.equals(this.numCaptureOnTargetReads)
+								&& !OutputStrings.notRun.equals(this.numberUsableReadsAfterMerging)
+								&& !OutputStrings.notFound.equals(this.numberUsableReadsAfterMerging)) {
+							Double onTargetReads = Double.parseDouble(this.numCaptureOnTargetReads);
+							Double endogenuous = calculateEndogenuousDNA(onTargetReads);
+							this.endogenousDNACapture = String.format("%.3f", endogenuous);
+						}
+					}
+					break;
 			case MapDamage:
 				if(this.runPipelines.containsKey(Pipelines.MapDamage)
 						&& this.runPipelines.get(Pipelines.MapDamage)){
@@ -578,6 +595,9 @@ public class AnalyzeSample {
 				case EndogenousDNAQF:
 					outputMap.put(OutputFields.EndogenousDNAQF, wasRunSuccessful(this.endogenousDNAQF));
 					break;
+					case EndogenousDNACapture:
+						outputMap.put(OutputFields.EndogenousDNACapture, wasRunSuccessful(this.endogenousDNACapture));
+						break;
 //				case ClusterFactorQF:
 //					outputMap.put(OutputFields.ClusterFactorQF, wasRunSuccessful(this.clusterFactorQF));
 //					break;
@@ -1108,7 +1128,10 @@ public class AnalyzeSample {
 	public String getEndogenousDNAQF() {
 		return endogenousDNAQF;
 	}
-
+	/***
+	 * @return the endogenousDNACaptured
+ 	 */
+	public String getEndogenousDNACapture() { return endogenousDNACapture; }
 	/**
 	 * @return the meanCoverage
 	 */
