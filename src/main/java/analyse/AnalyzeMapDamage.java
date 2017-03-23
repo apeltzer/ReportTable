@@ -156,7 +156,7 @@ public class AnalyzeMapDamage extends AbstractAnalyze {
 		fragments.sort((o1,o2) -> o1.get(0).compareTo(o2.get(0)));
 
 		ArrayList<Integer> pair;
-		int length_sum = 0;
+		double length_sum = 0;
 		int number_of_fragments=0;
 
 		for(int i = 0; i < fragments.size(); i++){
