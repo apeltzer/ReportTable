@@ -51,6 +51,7 @@ public class AnalyzeSample {
 	private String numberUsableReadsAfterMerging = "";
 	private String numberMergedReads = "";
 	private String perCentMergedReads = "";
+	private String unattemptedMappedReads = "";
 	private String totalNumMappedReadsBeforeDupRemoval = "";
 	private String totalNumMappedReadsBeforeDupRemovalGenome = "";
 	private String numCaptureOnTargetReads = "";
@@ -151,16 +152,18 @@ public class AnalyzeSample {
 				if(this.runPipelines.containsKey(Pipelines.ClipAndMerge)
 						&& this.runPipelines.get(Pipelines.ClipAndMerge)){
 					AnalyzeClipAndMerge analyzeClipAndMerge = new AnalyzeClipAndMerge(this.sampleFolder);
-					this.numberUsableReadsAfterMerging = analyzeClipAndMerge.getNumberUsableReadsBeforeMerging();
+					this.numberUsableReadsAfterMerging = analyzeClipAndMerge.getNumberUsableReadsAfterMerging();
 					this.numberMergedReads = analyzeClipAndMerge.getNumberMergedReads();
 					this.perCentMergedReads = analyzeClipAndMerge.getPerCentMergedReads();
 					this.versionClipAndMerge = analyzeClipAndMerge.getVersion();
 					this.isMergedOnly = analyzeClipAndMerge.isMergedOnly();
+					this.unattemptedMappedReads = analyzeClipAndMerge.getUnattemptedMappedReads();
 				}else{
 					this.numberUsableReadsAfterMerging = OutputStrings.notRun;
 					this.numberMergedReads = OutputStrings.notRun;
 					this.perCentMergedReads = OutputStrings.notRun;
 					this.versionClipAndMerge = OutputStrings.notRun;
+					this.unattemptedMappedReads = OutputStrings.notRun;
 				}
 				break;
 			case QualityTrimming:
@@ -385,29 +388,6 @@ public class AnalyzeSample {
 				break;
 			case GATKBasics:
 				break;
-//			case GATKGenotyper:
-//				if(this.runPipelines.containsKey(Pipelines.GATKGenotyper)
-//						&& this.runPipelines.get(Pipelines.GATKGenotyper)){
-//					AnalyzeGATKGenotyper analyzeGATKGenotyper = new AnalyzeGATKGenotyper(this.sampleFolder);
-//					this.snpccNumOfPositionsFoundByGenotyper = analyzeGATKGenotyper.getPositionsFoundByGenotyper();
-//					this.snpccNumOfCheckedPositionAgainsList = analyzeGATKGenotyper.getCheckedPositionsAgainstList();
-//					this.snpccPercentageOfSNPPositionsCovered = analyzeGATKGenotyper.getSnpPercentage();
-//					this.snpccTotalNumberOfHQPositions = analyzeGATKGenotyper.getNumHQPositions();
-//					this.snpccTotalNumberOfLQPositions = analyzeGATKGenotyper.getNumLQPositions();
-//					this.snpccCoverageOnHQSites = analyzeGATKGenotyper.getCoverageHQ();
-//					this.snpccCoverageOnLQSites = analyzeGATKGenotyper.getCoverageLQ();
-//					this.snpccCoverageOnVerifiedSites = analyzeGATKGenotyper.getCoverageVerified();
-//				}else{
-//					this.snpccNumOfPositionsFoundByGenotyper = OutputStrings.notRun;
-//					this.snpccNumOfCheckedPositionAgainsList = OutputStrings.notRun;
-//					this.snpccPercentageOfSNPPositionsCovered = OutputStrings.notRun;
-//					this.snpccTotalNumberOfHQPositions = OutputStrings.notRun;
-//					this.snpccTotalNumberOfLQPositions = OutputStrings.notRun;
-//					this.snpccCoverageOnHQSites = OutputStrings.notRun;
-//					this.snpccCoverageOnLQSites = OutputStrings.notRun;
-//					this.snpccCoverageOnVerifiedSites = OutputStrings.notRun;
-//				}
-//				break;
 			case GATKVariantFilter:
 				break;
 			case VCF2Genome:
@@ -423,21 +403,6 @@ public class AnalyzeSample {
 				break;
 			}
 		}
-		//		if("".equals(this.perCentMappedReads)
-		//				|| OutputStrings.notFound.equals(this.perCentMappedReads)
-		//				|| OutputStrings.notRun.equals(this.perCentMappedReads)){
-//		if(!"".equals(this.mappedReadsAfterDupRemoval)
-//				&& !OutputStrings.notFound.equals(this.mappedReadsAfterDupRemoval)
-//				&& !OutputStrings.notRun.equals(this.mappedReadsAfterDupRemoval)
-//				&& !"".equals(this.numberUsableReadsAfterMerging)
-//				&& !OutputStrings.notFound.equals(this.numberUsableReadsAfterMerging)
-//				&& !OutputStrings.notRun.equals(this.numberUsableReadsAfterMerging)){
-//			Double usable = Double.parseDouble(this.numberUsableReadsAfterMerging);
-//			Double mapped = Double.parseDouble(this.mappedReadsAfterDupRemoval);
-//			Double perCentMapped = (mapped / usable)*100;
-//			this.perCentMappedReads = String.format(Locale.ENGLISH, "%.3f", perCentMapped);
-//		}
-		//		}
 		// calculate the number of reads removed by RMDup
 		if(!"".equals(this.mappedReadsAfterDupRemoval)
 				&& !OutputStrings.notFound.equals(this.mappedReadsAfterDupRemoval)
@@ -566,9 +531,12 @@ public class AnalyzeSample {
 				case PerCentMergedReads:
 					outputMap.put(OutputFields.PerCentMergedReads, wasRunSuccessful(this.perCentMergedReads));
 					break;
-        case TotalNumMappedReadsBeforeDupRemovalGenome:
-          outputMap.put(OutputFields.TotalNumMappedReadsBeforeDupRemovalGenome, wasRunSuccessful(this.totalNumMappedReadsBeforeDupRemovalGenome));
-          break;
+				case ReadsUnattemptedMapped:
+					outputMap.put(OutputFields.ReadsUnattemptedMapped, wasRunSuccessful(this.unattemptedMappedReads));
+					break;
+		        case TotalNumMappedReadsBeforeDupRemovalGenome:
+		          outputMap.put(OutputFields.TotalNumMappedReadsBeforeDupRemovalGenome, wasRunSuccessful(this.totalNumMappedReadsBeforeDupRemovalGenome));
+		          break;
 				case TotalNumMappedReadsBeforeDupRemoval:
 					outputMap.put(OutputFields.TotalNumMappedReadsBeforeDupRemoval, wasRunSuccessful(this.totalNumMappedReadsBeforeDupRemoval));
 					break;
@@ -634,30 +602,6 @@ public class AnalyzeSample {
 				case MTNUCRatio:
 					outputMap.put(OutputFields.MTNUCRatio, wasRunSuccessful(this.mttonucratio));
 					break;
-//				case SNPCCNumPosFound:
-//					outputMap.put(OutputFields.SNPCCNumPosFound, wasRunSuccessful(this.snpccNumOfPositionsFoundByGenotyper));
-//					break;
-//				case SNPCCNumCheckedPos:
-//					outputMap.put(OutputFields.SNPCCNumCheckedPos, wasRunSuccessful(this.snpccNumOfCheckedPositionAgainsList));
-//					break;
-//				case SNPCCPerCentSNPCovered:
-//					outputMap.put(OutputFields.SNPCCPerCentSNPCovered, wasRunSuccessful(this.snpccPercentageOfSNPPositionsCovered));
-//					break;
-//				case SNPCCTotalNumHQPos:
-//					outputMap.put(OutputFields.SNPCCTotalNumHQPos, wasRunSuccessful(this.snpccTotalNumberOfHQPositions));
-//					break;
-//				case SNPCCTotalNumLQPos:
-//					outputMap.put(OutputFields.SNPCCTotalNumLQPos, wasRunSuccessful(this.snpccTotalNumberOfLQPositions));
-//					break;
-//				case SNPCCCovHQ:
-//					outputMap.put(OutputFields.SNPCCCovHQ, wasRunSuccessful(this.snpccCoverageOnHQSites));
-//					break;
-//				case SNPCCCovLQ:
-//					outputMap.put(OutputFields.SNPCCCovLQ, wasRunSuccessful(this.snpccCoverageOnLQSites));
-//					break;
-//				case SNPCCCovVerified:
-//					outputMap.put(OutputFields.SNPCCCovVerified, wasRunSuccessful(this.snpccCoverageOnVerifiedSites));
-//					break;
 				case Damage3Prime1st:
 					outputMap.put(OutputFields.Damage3Prime1st, wasRunSuccessful(this.damage3Prime1));
 					break;
@@ -707,256 +651,6 @@ public class AnalyzeSample {
 			}
 		}
 	}
-
-//	public String generateOutputString(HashMap<OutputFields, Boolean> outputMap){
-//		StringBuffer result = new StringBuffer("");
-//		if(outputMap.containsKey(OutputFields.SampleNumber)
-//				&& outputMap.get(OutputFields.SampleNumber)){
-//			result.append(this.sampleNumber);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.SampleName)
-//				&& outputMap.get(OutputFields.SampleName)){
-//			result.append(this.sampleName);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.NumRawReads)
-//				&& outputMap.get(OutputFields.NumRawReads)){
-//			result.append(this.numberRawReads);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.NumMergedReads)
-//				&& outputMap.get(OutputFields.NumMergedReads)){
-//			result.append(this.numberMergedReads);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.PerCentMergedReads)
-//				&& outputMap.get(OutputFields.PerCentMergedReads)){
-//			result.append(this.perCentMergedReads);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.NumUsableReadsAfterMerging)
-//				&& outputMap.get(OutputFields.NumUsableReadsAfterMerging)){
-//			result.append(this.numberUsableReadsAfterMerging);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.TotalNumMappedReadsBeforeDupRemoval)
-//				&& outputMap.get(OutputFields.TotalNumMappedReadsBeforeDupRemoval)){
-//			result.append(this.totalNumMappedReadsBeforeDupRemoval);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.TotalNumMappedReadsBeforeDupRemovalQF)
-//				&& outputMap.get(OutputFields.TotalNumMappedReadsBeforeDupRemovalQF)){
-//			result.append(this.mappedQF);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.NumDupRemoved)
-//				&& outputMap.get(OutputFields.NumDupRemoved)){
-//			result.append(this.numberDuplicatesRemoved);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.MappedReadsAfterDupRemoval)
-//				&& outputMap.get(OutputFields.MappedReadsAfterDupRemoval)){
-//			result.append(this.mappedReadsAfterDupRemoval);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.EndogenousDNA)
-//				&& outputMap.get(OutputFields.EndogenousDNA)){
-//			result.append(this.endogenousDNA);
-//			result.append(",");
-//		}
-////		if(outputMap.containsKey(OutputFields.PerCentMappedReads)
-////				&& outputMap.get(OutputFields.PerCentMappedReads)){
-////			result.append(this.perCentMappedReads);
-////			result.append(",");
-////		}
-//		if(outputMap.containsKey(OutputFields.ClusterFactor)
-//				&& outputMap.get(OutputFields.ClusterFactor)){
-//			result.append(this.clusterFactor);
-//			result.append(",");
-//		}
-////		if(outputMap.containsKey(OutputFields.ClusterFactorQF)
-////				&& outputMap.get(OutputFields.ClusterFactorQF)){
-////			result.append(this.clusterFactorQF);
-////			result.append(",");
-////		}
-////		if(outputMap.containsKey(OutputFields.EndogenousDNAQF)
-////				&& outputMap.get(OutputFields.EndogenousDNAQF)){
-////			result.append(this.endogenousDNAQF);
-////			result.append(",");
-////		}
-//		if(outputMap.containsKey(OutputFields.MeanCoverage)
-//				&& outputMap.get(OutputFields.MeanCoverage)){
-//			result.append(this.meanCoverage);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.StdDevCoverage)
-//				&& outputMap.get(OutputFields.StdDevCoverage)){
-//			result.append(this.stdCoverage);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.Coverage1X)
-//				&& outputMap.get(OutputFields.Coverage1X)){
-//			result.append(this.coverage1x);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.Coverage2X)
-//				&& outputMap.get(OutputFields.Coverage2X)){
-//			result.append(this.coverage2x);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.Coverage3X)
-//				&& outputMap.get(OutputFields.Coverage3X)){
-//			result.append(this.coverage3x);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.Coverage4X)
-//				&& outputMap.get(OutputFields.Coverage4X)){
-//			result.append(this.coverage4x);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.Coverage5X)
-//				&& outputMap.get(OutputFields.Coverage5X)){
-//			result.append(this.coverage5x);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.NumSNPs)
-//				&& outputMap.get(OutputFields.NumSNPs)){
-//			result.append(this.numSNPs);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.NumReadsMT)
-//				&& outputMap.get(OutputFields.NumReadsMT)){
-//			result.append(this.numMitochondrealReads);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.AVGCovMT)
-//				&& outputMap.get(OutputFields.AVGCovMT)){
-//			result.append(this.avgCoverageOnMt);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.MTNUCRatio)
-//				&& outputMap.get(OutputFields.MTNUCRatio)){
-//			result.append(this.mttonucratio);
-//			result.append(",");
-//		}
-////		if(outputMap.containsKey(OutputFields.SNPCCNumPosFound)
-////				&& outputMap.get(OutputFields.SNPCCNumPosFound)){
-////			result.append(this.snpccNumOfPositionsFoundByGenotyper);
-////			result.append(",");
-////		}
-////		if(outputMap.containsKey(OutputFields.SNPCCNumCheckedPos)
-////				&& outputMap.get(OutputFields.SNPCCNumCheckedPos)){
-////			result.append(this.snpccNumOfCheckedPositionAgainsList);
-////			result.append(",");
-////		}
-////		if(outputMap.containsKey(OutputFields.SNPCCPerCentSNPCovered)
-////				&& outputMap.get(OutputFields.SNPCCPerCentSNPCovered)){
-////			result.append(this.snpccPercentageOfSNPPositionsCovered);
-////			result.append(",");
-////		}
-////		if(outputMap.containsKey(OutputFields.SNPCCTotalNumHQPos)
-////				&& outputMap.get(OutputFields.SNPCCTotalNumHQPos)){
-////			result.append(this.snpccTotalNumberOfHQPositions);
-////			result.append(",");
-////		}
-////		if(outputMap.containsKey(OutputFields.SNPCCTotalNumLQPos)
-////				&& outputMap.get(OutputFields.SNPCCTotalNumLQPos)){
-////			result.append(this.snpccTotalNumberOfLQPositions);
-////			result.append(",");
-////		}
-////		if(outputMap.containsKey(OutputFields.SNPCCCovHQ)
-////				&& outputMap.get(OutputFields.SNPCCCovHQ)){
-////			result.append(this.snpccCoverageOnHQSites);
-////			result.append(",");
-////		}
-////		if(outputMap.containsKey(OutputFields.SNPCCCovLQ)
-////				&& outputMap.get(OutputFields.SNPCCCovLQ)){
-////			result.append(this.snpccCoverageOnLQSites);
-////			result.append(",");
-////		}
-////		if(outputMap.containsKey(OutputFields.SNPCCCovVerified)
-////				&& outputMap.get(OutputFields.SNPCCCovVerified)){
-////			result.append(this.snpccCoverageOnVerifiedSites);
-////			result.append(",");
-////		}
-//		if(outputMap.containsKey(OutputFields.Damage3Prime1st)
-//				&& outputMap.get(OutputFields.Damage3Prime1st)){
-//			result.append(this.damage3Prime1);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.Damage3Prime2nd)
-//				&& outputMap.get(OutputFields.Damage3Prime2nd)){
-//			result.append(this.damage3Prime2);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.Damage5Prime1st)
-//				&& outputMap.get(OutputFields.Damage5Prime1st)){
-//			result.append(this.damage5Prime1);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.Damage5Prime2nd)
-//				&& outputMap.get(OutputFields.Damage5Prime2nd)){
-//			result.append(this.damage5Prime2);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.DamageLgDistribution)
-//				&& outputMap.get(OutputFields.DamageLgDistribution)){
-//			result.append(this.meanFragmentLength);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.InitialContamination)
-//				&& outputMap.get(OutputFields.InitialContamination)){
-//			result.append(this.initialEstimation);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.InitialContaminationLowerBound)
-//				&& outputMap.get(OutputFields.InitialContaminationLowerBound)){
-//			result.append(this.initialLowerBound);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.InitialContaminationUpperBound)
-//				&& outputMap.get(OutputFields.InitialContaminationUpperBound)){
-//			result.append(this.initialUpperBound);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.FinalContamination)
-//				&& outputMap.get(OutputFields.FinalContamination)){
-//			result.append(this.finalEstimation);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.FinalContaminationLowerBound)
-//				&& outputMap.get(OutputFields.FinalContaminationLowerBound)){
-//			result.append(this.finalLowerBound);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.FinalContaminationUpperBound)
-//				&& outputMap.get(OutputFields.FinalContaminationUpperBound)){
-//			result.append(this.finalUpperBound);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.FinalContaminationMtnotpredc)
-//				&& outputMap.get(OutputFields.FinalContaminationMtnotpredc)){
-//			result.append(this.finalEstimationMtnotpredc);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.FinalContaminationLowerBoundMtnotpredc)
-//				&& outputMap.get(OutputFields.FinalContaminationLowerBoundMtnotpredc)){
-//			result.append(this.finalLowerBoundMtnotpredc);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.FinalContaminationUpperBoundMtnotpredc)
-//				&& outputMap.get(OutputFields.FinalContaminationUpperBoundMtnotpredc)){
-//			result.append(this.finalUpperBoundMtnotpredc);
-//			result.append(",");
-//		}
-//		if(outputMap.containsKey(OutputFields.GCContent)
-//				&& outputMap.get(OutputFields.GCContent)){
-//			result.append(this.gcContent);
-//			result.append(",");
-//		}
-//		return result.toString();
-//	}
 
 	private void parseConfig() {
 		File configFile = findConfig();
@@ -1312,6 +1006,14 @@ public class AnalyzeSample {
 	 */
 	public String getFinalUpperBoundMtnotpredc() {
 		return finalUpperBoundMtnotpredc;
+	}
+
+
+	/**
+	 * @return the unattemptedMappedReads
+	 */
+	public String getUnattemptedMappedReads(){
+		return unattemptedMappedReads;
 	}
 
 	public String getValue(OutputFields currField) {

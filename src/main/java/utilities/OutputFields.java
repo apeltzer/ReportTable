@@ -120,6 +120,22 @@ public enum OutputFields {
 			return ", html5_data: 'data-filter', filter_type: 'range_number'";
 		}
 	},
+	ReadsUnattemptedMapped {
+		@Override
+		public String toString(){
+			return "# reads not attempted to map";
+		}
+
+		@Override
+		public String getGetterName() {
+			return "getUnattemptedMappedReads";
+		}
+
+		@Override
+		public String getFieldType() {
+			return ", html5_data: 'data-filter', filter_type: 'range_number'";
+		}
+	},
 	TotalNumMappedReadsBeforeDupRemovalGenome {
 		@Override
 		public String toString(){

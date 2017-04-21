@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Locale;
 
 import utilities.OutputStrings;
 import utilities.Pipelines;
@@ -37,9 +38,10 @@ import utilities.Pipelines;
 public class AnalyzeClipAndMerge extends AbstractAnalyze {
 	
 	// member variables
-	private String numberUsableReadsBeforeMerging = OutputStrings.notFound;
+	private String numberUsableReadsAfterMerging = OutputStrings.notFound;
 	private String numberMergedReads = OutputStrings.notFound;
 	private String perCentMergedReads = OutputStrings.notFound;
+	private String unattemptedMappedReads = OutputStrings.notFound;
 	private String version = OutputStrings.notFound;
 	private boolean mergedOnly = false;
 	
@@ -67,6 +69,10 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 				found = true;
 				parseFile(currFile);
 			}
+			if(currFile.isFile() && currFile.getName().endsWith(".settings")){
+				found = true;
+				parseARFile(currFile);
+			}
 		}
 		if(numfqFiles>1){
 			this.mergedOnly = true;
@@ -87,6 +93,78 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 	 */
 	public boolean isMergedOnly() {
 		return mergedOnly;
+	}
+	
+
+
+	// parse the given file for the needed information (from Adapter Removal output)
+	private void parseARFile(File currFile) {
+		try {
+			@SuppressWarnings("resource")
+			BufferedReader br = new BufferedReader(new FileReader(currFile));
+			String currLine = "";
+			boolean started = false;
+			Integer inputReads = 0;
+			Integer singletonReads = 0;
+			Integer mergedReads = 0;
+			Integer theoreticalOutputReads = 0;
+			// the results are located after the file contains the Message "Finished merging!"
+			while((currLine = br.readLine()) != null){
+//				if(!started && currLine.contains("ClipAndMerge")){
+//					String[] splittedLine = currLine.split(" ");
+//					this.version = splittedLine[splittedLine.length-1].trim();
+//					this.version = this.version.replace(")", "");
+//				}
+				if(!started && currLine.contains("[Trimming statistics]")){
+					System.out.println(currLine);
+					started = true;
+					continue;
+				}
+				if(!started){
+					continue;
+				}
+				if(currLine.contains("Total number of read pairs")){
+					String[] splittedLine = currLine.split(":");
+					inputReads = Integer.parseInt(splittedLine[splittedLine.length-1].trim());
+					continue;
+				}
+				if(currLine.contains("Number of singleton mate 1 reads")){
+					String[] splittedLine = currLine.split(":");
+					singletonReads += Integer.parseInt(splittedLine[splittedLine.length-1].trim());
+					continue;
+				}
+				if(currLine.contains("Number of singleton mate 2 reads")){
+					String[] splittedLine = currLine.split(":");
+					singletonReads += Integer.parseInt(splittedLine[splittedLine.length-1].trim());
+					continue;
+				}
+				if(currLine.contains("Number of full-length collapsed pairs")){
+					String[] splittedLine = currLine.split(":");
+					mergedReads += Integer.parseInt(splittedLine[splittedLine.length-1].trim());
+					continue;
+				}
+				if(currLine.contains("Number of truncated collapsed pairs")){
+					String[] splittedLine = currLine.split(":");
+					mergedReads += Integer.parseInt(splittedLine[splittedLine.length-1].trim());
+					continue;
+				}
+				if(currLine.contains("Number of retained reads")){
+					System.out.println(currLine);
+					String[] splittedLine = currLine.split(":");
+					theoreticalOutputReads = Integer.parseInt(splittedLine[splittedLine.length-1].trim());
+					continue;
+				}
+			}
+			this.numberUsableReadsAfterMerging = ""+(singletonReads+mergedReads);
+			this.numberMergedReads = ""+mergedReads;
+			this.perCentMergedReads = String.format(Locale.ENGLISH, "%.3f", ((double)mergedReads)/((double)inputReads));
+			this.unattemptedMappedReads = ""+(theoreticalOutputReads-singletonReads-mergedReads);
+			
+		} catch (IOException e) {
+			
+		}
+		this.mergedOnly = false;
+		
 	}
 
 	// parse the given file for the needed information
@@ -114,7 +192,7 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 				if(currLine.contains("Number of usable reads")
 						|| currLine.contains("Number of usable reads in the output file(s)")){
 					String[] splittedLine = currLine.split(" ");
-					this.numberUsableReadsBeforeMerging = splittedLine[splittedLine.length-1].trim();
+					this.numberUsableReadsAfterMerging = splittedLine[splittedLine.length-1].trim();
 					continue;
 				}
 				if(currLine.contains("Number of merged reads")
@@ -139,8 +217,8 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 	/**
 	 * @return the number of Usable Reads that were there Before the Merging step
 	 */
-	public String getNumberUsableReadsBeforeMerging() {
-		return numberUsableReadsBeforeMerging;
+	public String getNumberUsableReadsAfterMerging() {
+		return numberUsableReadsAfterMerging;
 	}
 
 	/**
@@ -155,6 +233,13 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 	 */
 	public String getPerCentMergedReads() {
 		return perCentMergedReads;
+	}
+
+	/**
+	 * @return the unattemptedMappedReads
+	 */
+	public String getUnattemptedMappedReads() {
+		return unattemptedMappedReads;
 	}
 
 	/**
