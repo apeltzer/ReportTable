@@ -116,7 +116,6 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 //					this.version = this.version.replace(")", "");
 //				}
 				if(!started && currLine.contains("[Trimming statistics]")){
-					System.out.println(currLine);
 					started = true;
 					continue;
 				}
@@ -149,7 +148,6 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 					continue;
 				}
 				if(currLine.contains("Number of retained reads")){
-					System.out.println(currLine);
 					String[] splittedLine = currLine.split(":");
 					theoreticalOutputReads = Integer.parseInt(splittedLine[splittedLine.length-1].trim());
 					continue;
@@ -157,7 +155,7 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 			}
 			this.numberUsableReadsAfterMerging = ""+(singletonReads+mergedReads);
 			this.numberMergedReads = ""+mergedReads;
-			this.perCentMergedReads = String.format(Locale.ENGLISH, "%.3f", ((double)mergedReads)/((double)inputReads));
+			this.perCentMergedReads = String.format(Locale.ENGLISH, "%.3f", (100*(double)mergedReads)/((double)inputReads));
 			this.unattemptedMappedReads = ""+(theoreticalOutputReads-singletonReads-mergedReads);
 			
 		} catch (IOException e) {
