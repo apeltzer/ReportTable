@@ -196,13 +196,17 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 				if(currLine.contains("Number of merged reads")
 						|| currLine.contains("Number of usable merged reads")){
 					String[] splittedLine = currLine.split(" ");
-					this.numberMergedReads = splittedLine[splittedLine.length-1].trim();
+					if(!"0".equals(splittedLine[splittedLine.length-1].trim())){
+						this.numberMergedReads = splittedLine[splittedLine.length-1].trim();
+					}
 					continue;
 				}
 				if(currLine.contains("Percentage of merged reads")
 						|| currLine.contains("Percentage of usable merged reads")){
 					String[] splittedLine = currLine.split(" ");
-					this.perCentMergedReads = splittedLine[splittedLine.length-2].trim();
+					if(!"0.0".equals(splittedLine[splittedLine.length-2].trim())){
+						this.perCentMergedReads = splittedLine[splittedLine.length-2].trim();
+					}
 					break;
 				}
 			}
