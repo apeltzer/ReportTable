@@ -73,7 +73,7 @@ publishing {
         }
     }
 }
-/*
+
 bintray {
     user = bintrayUser
     key = bintrayKey
@@ -95,4 +95,3 @@ bintray {
 
     }
 }
-*/
