@@ -422,6 +422,7 @@ public class AnalyzeSample {
 		}
     if ( this.runPipelines.containsKey(Pipelines.CircularMapper)
           && !OutputStrings.notFound.equals(this.totalNumMappedReadsBeforeDupRemoval)
+          && !OutputStrings.notRun.equals(this.totalNumMappedReadsBeforeDupRemoval)
 					&& !OutputStrings.notRun.equals(this.numberUsableReadsAfterMerging)
 					&& !OutputStrings.notFound.equals(this.numberUsableReadsAfterMerging)){
       Double mappedReads = Double.parseDouble(this.totalNumMappedReadsBeforeDupRemoval);
