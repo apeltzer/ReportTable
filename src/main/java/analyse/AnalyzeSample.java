@@ -433,7 +433,7 @@ public class AnalyzeSample {
 				|| OutputStrings.notFound.equals(this.endogenousDNA)
 				|| OutputStrings.notRun.equals(this.endogenousDNA)){
 			if(!OutputStrings.notFound.equals(this.totalNumMappedReadsBeforeDupRemoval)
-					&& !OutputStrings.notFound.equals(this.totalNumMappedReadsBeforeDupRemoval)
+					&& !OutputStrings.notRun.equals(this.totalNumMappedReadsBeforeDupRemoval)
 					&& !OutputStrings.notRun.equals(this.numberUsableReadsAfterMerging)
 					&& !OutputStrings.notFound.equals(this.numberUsableReadsAfterMerging)){
 				Double mappedReads = Double.parseDouble(this.totalNumMappedReadsBeforeDupRemoval);
