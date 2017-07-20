@@ -20,6 +20,8 @@
 package main;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -27,6 +29,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 
 import IO.AReportWriter;
 import IO.AnalyzeFolders;
@@ -42,14 +45,19 @@ import utilities.OutputFields;
  */
 public class ReportTable {
 
+	private static String VERSION = "x.x";
+	private static String TITLE = "ReportTable";
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		loadMetadata();
+		System.out.println(ReportTable.TITLE+" version "+ReportTable.VERSION);
 		if(args.length != 2){
 			System.err.println("Wrong number of parameters!");
 			System.out.println("Usage:");
-			System.out.println("ReportTable <output_file> <input_folder>");
+			System.out.println(ReportTable.TITLE+" <output_file> <input_folder>");
 			System.exit(0);
 		}
 		Locale.setDefault(new Locale("en", "US"));
@@ -140,6 +148,23 @@ public class ReportTable {
 			return s.replace(",", ".");
 		}
 		return s;
+	}
+	
+	private static void loadMetadata(){
+		Properties properties = new Properties();
+		try {
+			//load version
+			InputStream in = ReportTable.class.getResourceAsStream("/version.properties");
+			properties.load(in);
+			ReportTable.VERSION = properties.getProperty("version");
+			in.close();
+			// load title
+			in = ReportTable.class.getResourceAsStream("/title.properties");
+			properties.load(in);
+			ReportTable.TITLE  = properties.getProperty("title");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

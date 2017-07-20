@@ -1,5 +1,9 @@
 group 'com.uni-tuebingen.de.it.eager.ReportTable'
-version '1.92.30'
+version '1.92.31'
+
+project.ext{
+	title = "ReportTable"
+}
 
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
@@ -62,6 +66,15 @@ jar {
     doFirst {
         from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
     }
+}
+
+processResources {
+	filesMatching('version.properties'){
+    	expand projectVersion: project.version
+    }
+	filesMatching('title.properties'){
+		expand projectTitle: project.title
+	}
 }
 
 publishing {
