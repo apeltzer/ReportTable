@@ -1,5 +1,5 @@
 group 'com.uni-tuebingen.de.it.eager.ReportTable'
-version '1.92.31'
+version '1.92.32'
 
 project.ext{
 	title = "ReportTable"
@@ -40,14 +40,13 @@ allprojects {
 
 sourceCompatibility = 1.8
 
-
 sourceSets {
     main {
         java {
-            srcDir 'src'
+            srcDir 'src/main/java'
         }
         resources {
-            srcDir 'resources'
+            srcDir 'src/main/resources'
         }
     }
 }

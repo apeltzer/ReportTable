@@ -19,16 +19,17 @@
  */
 package analyse;
 
-import java.util.Arrays;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-
-
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import utilities.OutputFields;
 import utilities.OutputStrings;
@@ -106,9 +107,9 @@ public class AnalyzeSample {
 
 
 	// versions
-	private String versionFastQC = "";
-	private String versionClipAndMerge = "";
-	private String versionMapper = "";
+//	private String versionFastQC = "";
+//	private String versionClipAndMerge = "";
+//	private String versionMapper = "";
 	//	private String versionSamtools = "";
 	//	private String versionBetterRMDup = "";
 	//	private String versionQualiMap = "";
@@ -119,6 +120,7 @@ public class AnalyzeSample {
 
 	// the result string
 	private String resultString;
+	private Map<String, Set<String>> versions;
 
 	public String getResultString() {
 		return resultString;
@@ -129,8 +131,11 @@ public class AnalyzeSample {
 		this.sampleName = f.getName();
 		this.sampleFolder = f;
 		this.foundConfig = false;
-		parseConfig();
+		String guiVersion = parseConfig();
 		analyseFiles();
+		Set<String> currVersion = new TreeSet<String>();
+		currVersion.add(guiVersion);
+		this.versions.put("EAGER-GUI", currVersion);
 		//		generateOutputStringOld();
 	}
 
@@ -142,10 +147,10 @@ public class AnalyzeSample {
 						&& this.runPipelines.get(Pipelines.FastQC)){
 					AnalyzeFastQC analyzeFastQC = new AnalyzeFastQC(this.sampleFolder);
 					this.numberRawReads = analyzeFastQC.getNumRawReads();
-					this.versionFastQC = analyzeFastQC.getVersion();
+//					this.versionFastQC = analyzeFastQC.getVersion();
 				}else{
 					this.numberRawReads = OutputStrings.notRun;
-					this.versionFastQC = OutputStrings.notRun;
+//					this.versionFastQC = OutputStrings.notRun;
 				}
 				break;
 			case ClipAndMerge:
@@ -155,14 +160,14 @@ public class AnalyzeSample {
 					this.numberUsableReadsAfterMerging = analyzeClipAndMerge.getNumberUsableReadsAfterMerging();
 					this.numberMergedReads = analyzeClipAndMerge.getNumberMergedReads();
 					this.perCentMergedReads = analyzeClipAndMerge.getPerCentMergedReads();
-					this.versionClipAndMerge = analyzeClipAndMerge.getVersion();
+//					this.versionClipAndMerge = analyzeClipAndMerge.getVersion();
 					this.isMergedOnly = analyzeClipAndMerge.isMergedOnly();
 					this.unattemptedMappedReads = analyzeClipAndMerge.getUnattemptedMappedReads();
 				}else{
 					this.numberUsableReadsAfterMerging = OutputStrings.notRun;
 					this.numberMergedReads = OutputStrings.notRun;
 					this.perCentMergedReads = OutputStrings.notRun;
-					this.versionClipAndMerge = OutputStrings.notRun;
+//					this.versionClipAndMerge = OutputStrings.notRun;
 					this.unattemptedMappedReads = OutputStrings.notRun;
 				}
 				break;
@@ -192,7 +197,7 @@ public class AnalyzeSample {
 				if(this.runPipelines.containsKey(Pipelines.Mapping)
 						&& this.runPipelines.get(Pipelines.Mapping)){
 					AnalyzeMapper analyzeMapper = new AnalyzeMapper(this.sampleFolder);
-					this.versionMapper = analyzeMapper.getVersion();
+//					this.versionMapper = analyzeMapper.getVersion();
 					if("".equals(this.totalNumMappedReadsBeforeDupRemoval)
 							|| OutputStrings.notFound.equals(this.totalNumMappedReadsBeforeDupRemoval)
 							|| OutputStrings.notRun.equals(this.totalNumMappedReadsBeforeDupRemoval)){
@@ -209,7 +214,7 @@ public class AnalyzeSample {
 						this.numberUsableReadsAfterMerging = analyzeMapper.getNumReads();
 					}
 				}else{
-					this.versionMapper = OutputStrings.notRun;
+//					this.versionMapper = OutputStrings.notRun;
 				}
 				break;
 			case Samtools:
@@ -478,6 +483,10 @@ public class AnalyzeSample {
 		}else{
 			this.clusterFactorQF = OutputStrings.notFound;
 		}
+		
+		// get the versions of the Program
+		AnalyzeVersions av = new AnalyzeVersions(this.sampleFolder);
+		this.versions = av.getVersions();
 	}
 
 	/**
@@ -653,10 +662,12 @@ public class AnalyzeSample {
 		}
 	}
 
-	private void parseConfig() {
+	private String parseConfig() {
 		File configFile = findConfig();
+		String version = "Unknown";
 		if(this.foundConfig){
 			AnalyzeConfigFile analyzeConfigFile = new AnalyzeConfigFile(configFile);
+			version = analyzeConfigFile.getGuiVersion();
 			if(analyzeConfigFile.isAnalysisSuccessful()){
 				this.runPipelines = analyzeConfigFile.getRunPipelines();
 			}else{
@@ -665,6 +676,7 @@ public class AnalyzeSample {
 		}else{
 			setAllPipelinesToRun();
 		}
+		return version;
 	}
 
 	private void setAllPipelinesToRun() {
@@ -690,27 +702,6 @@ public class AnalyzeSample {
 		}
 		this.foundConfig=false;
 		return null;
-	}
-
-	/**
-	 * @return the version of fastQC
-	 */
-	public String getFastQCVersion(){
-		return this.versionFastQC;
-	}
-
-	/**
-	 * @return the version of ClipAndMerge
-	 */
-	public String getClipAndMergeVersion(){
-		return this.versionClipAndMerge;
-	}
-
-	/**
-	 * @return the version of the Mapper
-	 */
-	public String getMapperVersion(){
-		return this.versionMapper;
 	}
 
 	/**
@@ -1026,6 +1017,13 @@ public class AnalyzeSample {
 			result = OutputStrings.notFound;
 		}
 		return result;
+	}
+
+	/**
+	 * @return
+	 */
+	public Map<String, Set<String>> getVersions() {
+		return this.versions;
 	}
 
 }

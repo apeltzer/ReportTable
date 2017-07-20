@@ -25,11 +25,14 @@ import java.io.InputStream;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import IO.AReportWriter;
 import IO.AnalyzeFolders;
@@ -101,24 +104,46 @@ public class ReportTable {
 		for(AReportWriter afw: outputWriter){
 			afw.writeNotSuccessfulAnalyzed(outputMap);
 		}
-		HashSet<String> fastqc = new HashSet<String>();
-		HashSet<String> clipAndMerge = new HashSet<String>();
-		HashSet<String> mapper = new HashSet<String>();
+		Map<String, Set<String>> versions = new TreeMap<String, Set<String>>();
 		for(AnalyzeSample analyzeSample: analyzedSamples){
 			for(AReportWriter afw: outputWriter){
 				afw.writeDataLine(outputMap, analyzeSample);
 			}
-			fastqc.add(analyzeSample.getFastQCVersion());
-			clipAndMerge.add(analyzeSample.getClipAndMergeVersion());
-			mapper.add(analyzeSample.getMapperVersion());
+			versions = addVersions(versions, analyzeSample.getVersions());
+			Set<String> reportVersion = new TreeSet<String>();
+			reportVersion.add(ReportTable.VERSION);
+			versions.put("ReportTable Version:", reportVersion);
+			
 		}
 		for(AReportWriter afw: outputWriter){
 			afw.finalizeWriting();
 		}
 		for(AReportWriter afw: outputWriter){
-			afw.writeVersions(fastqc, clipAndMerge, mapper);
+			afw.writeVersions(versions);
 		}
 		System.out.println("finished");
+	}
+
+	/**
+	 * @param versions
+	 * @param versions2
+	 * @return
+	 */
+	private static Map<String, Set<String>> addVersions(Map<String, Set<String>> versions, Map<String, Set<String>> newVersions) {
+		for(String program: newVersions.keySet()) {
+			if(!versions.containsKey(program)) {
+				versions.put(program, newVersions.get(program));
+			}else {
+				Set<String> currVersions = versions.get(program);
+				for(String version: newVersions.get(program)) {
+					if(!currVersions.contains(version)) {
+						currVersions.add(version);
+					}
+				}
+				versions.put(program, currVersions);
+			}
+		}
+		return versions;
 	}
 
 	private static HashMap<OutputFields, Boolean> initOutputMap(boolean b) {

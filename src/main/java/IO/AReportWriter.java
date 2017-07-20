@@ -15,9 +15,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import analyse.AnalyzeSample;
 import utilities.OutputFields;
@@ -178,20 +179,35 @@ public abstract class AReportWriter {
 	}
 	
 
-	public void writeVersions(HashSet<String> fastqc, HashSet<String> clipAndMerge, HashSet<String> mapper) {
+//	public void writeVersions(HashSet<String> fastqc, HashSet<String> clipAndMerge, HashSet<String> mapper) {
+	public void writeVersions(Map<String, Set<String>> programVersions) {
 		// TODO Auto-generated method stub
-		if(new File(this.versionFilename).exists()){
-			return;
-		}
+//		if(new File(this.versionFilename).exists()){
+//			return;
+//		}
 		StringBuffer result = new StringBuffer("");
-		result.append("FastQC:\t");
-		result.append(fastqc.toString());
-		result.append("\n");
-		result.append("ClipAndMerge:\t");
-		result.append(clipAndMerge.toString());
-		result.append("\n");
-		result.append("Mapper:\t");
-		result.append(mapper.toString());
+		for(String program: programVersions.keySet()) {
+			Set<String> versions = programVersions.get(program);
+			int num = 0;
+			result.append(program);
+			result.append("\t");
+			for(String version: versions) {
+				num++;
+				result.append(version);
+				if(num < versions.size()) {
+					result.append("\t");
+				}
+			}
+			result.append("\n");
+		}
+//		result.append("FastQC:\t");
+//		result.append(fastqc.toString());
+//		result.append("\n");
+//		result.append("ClipAndMerge:\t");
+//		result.append(clipAndMerge.toString());
+//		result.append("\n");
+//		result.append("Mapper:\t");
+//		result.append(mapper.toString());
 		try(PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(new File(this.versionFilename), false)))) {
 		    out.println(result.toString());
 		    out.flush();

@@ -45,6 +45,7 @@ public class AnalyzeConfigFile {
 	private File configFile;
 	private boolean analysisSuccessful = true;
 	private HashMap<Pipelines, Boolean> runPipelines;
+	private String version = "Unknown";
 
 	/**
 	 * Constructor, reads the serialized Communicator file and analyzes, which
@@ -86,6 +87,7 @@ public class AnalyzeConfigFile {
 		// if the configuration file could be read, analyze it.
 		this.runPipelines = new HashMap<Pipelines, Boolean>();
 		if(analysisSuccessful){
+			this.version = communicator.getEager_version();
 			Boolean fastqc = communicator.isRun_fastqc();
 			if(null != fastqc && communicator.isRun_fastqc()){
 				this.runPipelines.put(Pipelines.FastQC, true);
@@ -181,6 +183,10 @@ public class AnalyzeConfigFile {
 	 */
 	public HashMap<Pipelines, Boolean> getRunPipelines() {
 		return runPipelines;
+	}
+	
+	public String getGuiVersion() {
+		return this.version;
 	}
 
 }
