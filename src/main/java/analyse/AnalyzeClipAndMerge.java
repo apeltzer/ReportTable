@@ -24,6 +24,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Locale;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 
 import utilities.OutputStrings;
 import utilities.Pipelines;
@@ -59,11 +62,7 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 		}
 		String[] names = dataDir.list();
 		boolean found = false;
-		int numfqFiles = 0;
 		for(String name: names){
-			if(name.endsWith(".fq.gz")){
-				numfqFiles++;
-			}
 			File currFile = new File(dataDir+"/"+name);
 			if(currFile.isFile() && currFile.getName().endsWith(".log")){
 				found = true;
@@ -74,8 +73,12 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 				parseARFile(currFile);
 			}
 		}
-		if(numfqFiles>1){
-			this.mergedOnly = true;
+		try {
+			String fastqTrack = new String(Files.readAllBytes(Paths.get(dataDir+System.getProperty("file.separator")+"track_fastq.log")), StandardCharsets.UTF_8).trim();
+			if(fastqTrack.equals("only_merged")){
+				this.mergedOnly = true;
+			}
+		} catch (IOException e) {
 		}
 		if(!found){
 		names = this.sampleFolder.list();
