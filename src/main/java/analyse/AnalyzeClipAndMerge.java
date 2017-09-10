@@ -158,7 +158,7 @@ public class AnalyzeClipAndMerge extends AbstractAnalyze {
 			}
 			this.numberUsableReadsAfterMerging = ""+(singletonReads+mergedReads);
 			this.numberMergedReads = ""+mergedReads;
-			this.perCentMergedReads = String.format(Locale.ENGLISH, "%.3f", (100*(double)mergedReads)/((double)inputReads));
+			this.perCentMergedReads = String.format(Locale.ENGLISH, "%.3f", (100*(double)mergedReads)/((double)theoreticalOutputReads));
 			this.unattemptedMappedReads = ""+(theoreticalOutputReads-singletonReads-mergedReads);
 			
 		} catch (IOException e) {

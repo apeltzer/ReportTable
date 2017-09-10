@@ -1,5 +1,5 @@
 group 'com.uni-tuebingen.de.it.eager.ReportTable'
-version '1.92.32'
+version '1.92.33'
 
 project.ext{
 	title = "ReportTable"
